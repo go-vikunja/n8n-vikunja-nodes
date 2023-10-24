@@ -329,6 +329,18 @@ export class Vikunja implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Duplicate',
+						value: 'duplicate',
+						description: 'Duplicate a project',
+						action: 'Duplicate a project',
+						routing: {
+							request: {
+								method: 'PUT',
+								url: '=/projects/{{$parameter.project}}/duplicate',
+							},
+						},
+					},
 				],
 				default: 'create',
 			},
@@ -419,7 +431,7 @@ export class Vikunja implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['project'],
-						operation: ['get', 'delete', 'update'],
+						operation: ['get', 'delete', 'update', 'duplicate'],
 					},
 				},
 				description: 'The project you want to operate on. Choose from the list, or specify an ID.',
