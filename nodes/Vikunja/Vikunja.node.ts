@@ -230,6 +230,30 @@ export class Vikunja implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Add a Relation',
+						description: 'Add a relation to a task',
+						value: 'addRelation',
+						action: 'Add a relation',
+						routing: {
+							request: {
+								method: 'PUT',
+								url: '=/tasks/{{$parameter.taskId}}/relations',
+							},
+						},
+					},
+					{
+						name: 'Remove a Relation',
+						description: 'Remove an existing relation on a task',
+						value: 'removeRelation',
+						action: 'Remove a relation',
+						routing: {
+							request: {
+								method: 'DELETE',
+								url: '=/tasks/{{$parameter.taskId}}/relations/{{$parameter.relationKind}}/{{$parameter.otherTaskId}}',
+							},
+						},
+					},
 				],
 				default: 'create',
 			},
@@ -255,6 +279,8 @@ export class Vikunja implements INodeType {
 							'getAllLabelsOnTask',
 							'addLabel',
 							'removeLabel',
+							'addRelation',
+							'removeRelation',
 						],
 					},
 				},
@@ -585,6 +611,91 @@ export class Vikunja implements INodeType {
 				},
 				default: '',
 				required: true,
+			},
+			{
+				displayName: 'Other Task ID',
+				description: 'The ID of the other task you want to relate the current one with',
+				name: 'otherTaskId',
+				type: 'number',
+				default: '',
+				required: true,
+				displayOptions: {
+					show: {
+						resource: ['task'],
+						operation: ['addRelation', 'removeRelation'],
+					},
+				},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'other_task_id',
+					},
+				},
+			},
+			{
+				displayName: 'Relation Kind',
+				name: 'relationKind',
+				type: 'options',
+				options: [
+					{
+						name: 'Sub Task',
+						value: 'subtask',
+					},
+					{
+						name: 'Parent Task',
+						value: 'parenttask',
+					},
+					{
+						name: 'Related Task',
+						value: 'related',
+					},
+					{
+						name: 'Duplicate Of',
+						value: 'duplicateof',
+					},
+					{
+						name: 'Duplicates',
+						value: 'duplicates',
+					},
+					{
+						name: 'Blocking',
+						value: 'blocking',
+					},
+					{
+						name: 'Blocked',
+						value: 'blocked',
+					},
+					{
+						name: 'Precedes',
+						value: 'precedes',
+					},
+					{
+						name: 'Follows',
+						value: 'follows',
+					},
+					{
+						name: 'Copied From',
+						value: 'copiedfrom',
+					},
+					{
+						name: 'Coped To',
+						value: 'copiedto',
+					},
+				],
+				default: 'related',
+				description: 'The kind of relation between tasks',
+				displayOptions: {
+					show: {
+						resource: ['task'],
+						operation: ['addRelation', 'removeRelation'],
+					},
+				},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'relation_kind',
+					},
+				},
 			},
 			// More
 		],
