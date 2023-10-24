@@ -45,7 +45,7 @@ You need npm and NodeJS installed.
 * Build the node with `npm run build`
 * Check for lint errors with `npm run lint` and fix them with `npm run lintfix`
 * To release a new version in the npm registry, run `npm publish`
-* To test the node, build the node with `npm run build`, then while in the project directory run `export N8N_CUSTOM_EXTENSIONS=$PWD8N_CUSTOM_EXTENSIONS=$PWD` and start n8n with the `n8n` command. You should now be able to find the node when searching for it.
+* To test the node, build the node with `npm run build`, then while in the project directory run `export N8N_CUSTOM_EXTENSIONS=$PWD` and start n8n with the `n8n` command. You should now be able to find the node when searching for it.
 
 ## Resources
 

@@ -1,4 +1,4 @@
-import {INodeProperties} from 'n8n-workflow'
+import { INodeProperties } from 'n8n-workflow';
 
 export const projectProperties: INodeProperties[] = [
 	{
@@ -14,126 +14,6 @@ export const projectProperties: INodeProperties[] = [
 		},
 		options: [
 			{
-				name: 'Create',
-				value: 'create',
-				description: 'Create a project',
-				action: 'Create a project',
-				routing: {
-					request: {
-						method: 'PUT',
-						url: '=/projects',
-					},
-				},
-			},
-			{
-				name: 'Delete',
-				value: 'delete',
-				description: 'Delete a project',
-				action: 'Delete a project',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/projects/{{$parameter.project}}',
-					},
-				},
-			},
-			{
-				name: 'Get',
-				value: 'get',
-				description: 'Get a project',
-				action: 'Get a project',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/projects/{{$parameter.project}}',
-					},
-				},
-			},
-			{
-				name: 'Get Many',
-				value: 'getAll',
-				description: 'Get many projects',
-				action: 'Get many projects',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/projects',
-					},
-				},
-			},
-			{
-				name: 'Update',
-				value: 'update',
-				description: 'Update a project',
-				action: 'Update a project',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '=/projects/{{$parameter.project}}',
-					},
-				},
-			},
-			{
-				name: 'Duplicate',
-				value: 'duplicate',
-				description: 'Duplicate a project',
-				action: 'Duplicate a project',
-				routing: {
-					request: {
-						method: 'PUT',
-						url: '=/projects/{{$parameter.project}}/duplicate',
-					},
-				},
-			},
-			{
-				name: 'Get All Link Shares',
-				description: 'Fetch all linkShares on a project',
-				value: 'getAllLinkShares',
-				action: 'Get all link shares',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/project/{{$parameter.project}}/shares',
-					},
-				},
-			},
-			{
-				name: 'Create a Link Share',
-				description: 'Create Link Share for a project',
-				value: 'createLinkShare',
-				action: 'Create a link share',
-				routing: {
-					request: {
-						method: 'PUT',
-						url: '=/projects/{{$parameter.project}}/shares',
-					},
-				},
-			},
-			{
-				name: 'Delete a Link Share',
-				description: 'Delete a link share from a project',
-				value: 'deleteLinkShare',
-				action: 'Delete a link share',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/projects/{{$parameter.project}}/shares/{{$parameter.linkShareId}}',
-					},
-				},
-			},
-			{
-				name: 'Get All Teams',
-				description: 'Fetch all teams who have access to a project',
-				value: 'getAllTeams',
-				action: 'Get all teams',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/projects/{{$parameter.project}}/teams',
-					},
-				},
-			},
-			{
 				name: 'Add a Team',
 				description: 'Add a team to a project',
 				value: 'addTeam',
@@ -142,40 +22,6 @@ export const projectProperties: INodeProperties[] = [
 					request: {
 						method: 'PUT',
 						url: '=/projects/{{$parameter.project}}/teams',
-					},
-				},
-			},
-			{
-				name: 'Update a Team\'s Rights on a Project',
-				value: 'updateTeam',
-				action: 'Update a team s rights on a project a project',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '=/projects/{{$parameter.project}}/teams/{{$parameter.teamId}}',
-					},
-				},
-			},
-			{
-				name: 'Remove a Team From a Project',
-				value: 'removeTeam',
-				action: 'Remove a team',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/projects/{{$parameter.project}}/teams/{{$parameter.teamId}}',
-					},
-				},
-			},
-			{
-				name: 'Get All Users',
-				description: 'Fetch all users who have access to a project',
-				value: 'getAllUsers',
-				action: 'Get all users',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/projects/{{$parameter.project}}/users',
 					},
 				},
 			},
@@ -192,24 +38,14 @@ export const projectProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Update a User\'s Rights on a Project',
-				value: 'updateUser',
-				action: 'Update a user s rights on a project a project',
+				name: 'Create',
+				value: 'create',
+				description: 'Create a project',
+				action: 'Create a project',
 				routing: {
 					request: {
-						method: 'POST',
-						url: '=/projects/{{$parameter.project}}/users/{{$parameter.userId}}',
-					},
-				},
-			},
-			{
-				name: 'Remove a User From a Project',
-				value: 'removeUser',
-				action: 'Remove a user',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/projects/{{$parameter.project}}/users/{{$parameter.userId}}',
+						method: 'PUT',
+						url: '=/projects',
 					},
 				},
 			},
@@ -226,14 +62,26 @@ export const projectProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Update a Kanban Bucket',
-				description: 'Update a kanban bucket in a project',
-				value: 'updateBucket',
-				action: 'Update a bucket',
+				name: 'Create a Link Share',
+				description: 'Create Link Share for a project',
+				value: 'createLinkShare',
+				action: 'Create a link share',
 				routing: {
 					request: {
-						method: 'POST',
-						url: '=/projects/{{$parameter.project}}/buckets/{{$parameter.bucketId}}',
+						method: 'PUT',
+						url: '=/projects/{{$parameter.project}}/shares',
+					},
+				},
+			},
+			{
+				name: 'Delete',
+				value: 'delete',
+				description: 'Delete a project',
+				action: 'Delete a project',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}',
 					},
 				},
 			},
@@ -249,6 +97,158 @@ export const projectProperties: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				name: 'Delete a Link Share',
+				description: 'Delete a link share from a project',
+				value: 'deleteLinkShare',
+				action: 'Delete a link share',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}/shares/{{$parameter.linkShareId}}',
+					},
+				},
+			},
+			{
+				name: 'Duplicate',
+				value: 'duplicate',
+				description: 'Duplicate a project',
+				action: 'Duplicate a project',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/projects/{{$parameter.project}}/duplicate',
+					},
+				},
+			},
+			{
+				name: 'Get',
+				value: 'get',
+				description: 'Get a project',
+				action: 'Get a project',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects/{{$parameter.project}}',
+					},
+				},
+			},
+			{
+				name: 'Get All Link Shares',
+				description: 'Fetch all linkShares on a project',
+				value: 'getAllLinkShares',
+				action: 'Get all link shares',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/project/{{$parameter.project}}/shares',
+					},
+				},
+			},
+			{
+				name: 'Get All Teams',
+				description: 'Fetch all teams who have access to a project',
+				value: 'getAllTeams',
+				action: 'Get all teams',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects/{{$parameter.project}}/teams',
+					},
+				},
+			},
+			{
+				name: 'Get All Users',
+				description: 'Fetch all users who have access to a project',
+				value: 'getAllUsers',
+				action: 'Get all users',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects/{{$parameter.project}}/users',
+					},
+				},
+			},
+			{
+				name: 'Get Many',
+				value: 'getAll',
+				description: 'Get many projects',
+				action: 'Get many projects',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects',
+					},
+				},
+			},
+			{
+				name: 'Remove a Team From a Project',
+				value: 'removeTeam',
+				action: 'Remove a team',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}/teams/{{$parameter.teamId}}',
+					},
+				},
+			},
+			{
+				name: 'Remove a User From a Project',
+				value: 'removeUser',
+				action: 'Remove a user',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}/users/{{$parameter.userId}}',
+					},
+				},
+			},
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update a project',
+				action: 'Update a project',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}',
+					},
+				},
+			},
+			{
+				name: 'Update a Kanban Bucket',
+				description: 'Update a kanban bucket in a project',
+				value: 'updateBucket',
+				action: 'Update a bucket',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/buckets/{{$parameter.bucketId}}',
+					},
+				},
+			},
+			{
+				name: "Update a Team's Rights on a Project",
+				value: 'updateTeam',
+				action: 'Update a team s rights on a project a project',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/teams/{{$parameter.teamId}}',
+					},
+				},
+			},
+			{
+				name: "Update a User's Rights on a Project",
+				value: 'updateUser',
+				action: 'Update a user s rights on a project a project',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/users/{{$parameter.userId}}',
+					},
+				},
+			},
 		],
 		default: 'create',
 	},
@@ -256,7 +256,7 @@ export const projectProperties: INodeProperties[] = [
 		displayName: 'Project Title or ID',
 		name: 'project',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		required: true,
 		modes: [
 			{
@@ -307,7 +307,7 @@ export const projectProperties: INodeProperties[] = [
 		displayName: 'Parent Project Title or ID',
 		name: 'parentProject',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		modes: [
 			{
 				displayName: 'From List',
@@ -431,7 +431,8 @@ export const projectProperties: INodeProperties[] = [
 				name: 'defaultBucketId',
 				type: 'number',
 				default: 0,
-				description: 'The ID of the bucket where new tasks without a bucket are added to. By default, this is the leftmost bucket in a project.',
+				description:
+					'The ID of the bucket where new tasks without a bucket are added to. By default, this is the leftmost bucket in a project.',
 				routing: {
 					send: {
 						type: 'body',
@@ -444,7 +445,8 @@ export const projectProperties: INodeProperties[] = [
 				name: 'doneBucketId',
 				type: 'number',
 				default: 0,
-				description: 'If tasks are moved to the done bucket, they are marked as done. If they are marked as done individually, they are moved into the done bucket.',
+				description:
+					'If tasks are moved to the done bucket, they are marked as done. If they are marked as done individually, they are moved into the done bucket.',
 				routing: {
 					send: {
 						type: 'body',
@@ -484,7 +486,7 @@ export const projectProperties: INodeProperties[] = [
 		displayName: 'Team ID',
 		name: 'teamId',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		modes: [
 			{
 				displayName: 'From List',
@@ -587,7 +589,8 @@ export const projectProperties: INodeProperties[] = [
 				name: 'name',
 				type: 'string',
 				default: '',
-				description: 'The name of this link share. All actions someone takes while being authenticated with that link will appear with that name.',
+				description:
+					'The name of this link share. All actions someone takes while being authenticated with that link will appear with that name.',
 				routing: {
 					send: {
 						type: 'body',
@@ -599,8 +602,10 @@ export const projectProperties: INodeProperties[] = [
 				displayName: 'Password',
 				name: 'password',
 				type: 'string',
+				typeOptions: { password: true },
 				default: '',
-				description: 'The password of this link share. You can only set it, not retrieve it after the link share has been created.',
+				description:
+					'The password of this link share. You can only set it, not retrieve it after the link share has been created.',
 				routing: {
 					send: {
 						type: 'body',
@@ -629,7 +634,7 @@ export const projectProperties: INodeProperties[] = [
 						property: 'sharing_type',
 					},
 				},
-			}
+			},
 		],
 	},
 	{
@@ -683,4 +688,4 @@ export const projectProperties: INodeProperties[] = [
 		},
 		default: 0,
 	},
-]
+];

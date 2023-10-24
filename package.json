@@ -1,7 +1,7 @@
 {
   "name": "n8n-nodes-vikunja",
   "version": "0.1.0",
-  "description": "",
+  "description": "This is an n8n community node which lets you use Vikunja in your n8n workflows.",
   "keywords": [
     "n8n-community-node-package"
   ],

@@ -1,4 +1,4 @@
-import {INodeProperties} from 'n8n-workflow'
+import { INodeProperties } from 'n8n-workflow';
 
 export const taskProperties: INodeProperties[] = [
 	{
@@ -13,6 +13,53 @@ export const taskProperties: INodeProperties[] = [
 			},
 		},
 		options: [
+			{
+				name: 'Add a Comment',
+				description: 'Add a comment to a task',
+				value: 'addComment',
+				action: 'Add a comment',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/tasks/{{$parameter.taskId}}/comments',
+					},
+				},
+			},
+			{
+				name: 'Add a Label',
+				description: 'Add a label to a task',
+				value: 'addLabel',
+				action: 'Add a label',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/tasks/{{$parameter.taskId}}/labels',
+					},
+				},
+			},
+			{
+				name: 'Add a Relation',
+				description: 'Add a relation to a task',
+				value: 'addRelation',
+				action: 'Add a relation',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/tasks/{{$parameter.taskId}}/relations',
+					},
+				},
+			},
+			{
+				name: 'Assign a User to a Task',
+				value: 'assignUser',
+				action: 'Assign a user',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/tasks/{{$parameter.taskId}}/assignees',
+					},
+				},
+			},
 			{
 				name: 'Create',
 				value: 'create',
@@ -38,6 +85,18 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Delete a Comment',
+				description: 'Delete an existing comment on a task',
+				value: 'deleteComment',
+				action: 'Delete a comment',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/tasks/{{$parameter.taskId}}/comments/{{$parameter.commentId}}',
+					},
+				},
+			},
+			{
 				name: 'Get',
 				value: 'get',
 				description: 'Get a task',
@@ -46,52 +105,6 @@ export const taskProperties: INodeProperties[] = [
 					request: {
 						method: 'GET',
 						url: '=/tasks/{{$parameter.taskId}}',
-					},
-				},
-			},
-			{
-				name: 'Get Many',
-				value: 'getAll',
-				description: 'Get many tasks',
-				action: 'Get many tasks',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/projects/{{$parameter.taskProject}}/tasks',
-					},
-				},
-			},
-			{
-				name: 'Update',
-				value: 'update',
-				description: 'Update a task',
-				action: 'Update a task',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/tasks/{{$parameter.taskId}}',
-					},
-				},
-			},
-			{
-				name: 'Assign a User to a Task',
-				value: 'assignUser',
-				action: 'Assign a user',
-				routing: {
-					request: {
-						method: 'PUT',
-						url: '=/tasks/{{$parameter.taskId}}/assignees',
-					},
-				},
-			},
-			{
-				name: 'Remove an Assigned User From a Task',
-				value: 'unassignUser',
-				action: 'Unassign a user',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/tasks/{{$parameter.taskId}}/assignees/{{$parameter.userId}}',
 					},
 				},
 			},
@@ -108,42 +121,6 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Add a Comment',
-				description: 'Add a comment to a task',
-				value: 'addComment',
-				action: 'Add a comment',
-				routing: {
-					request: {
-						method: 'PUT',
-						url: '=/tasks/{{$parameter.taskId}}/comments',
-					},
-				},
-			},
-			{
-				name: 'Update a Comment',
-				description: 'Update an existing comment on a task',
-				value: 'updateComment',
-				action: 'Update a comment',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '=/tasks/{{$parameter.taskId}}/comments/{{$parameter.commentId}}',
-					},
-				},
-			},
-			{
-				name: 'Delete a Comment',
-				description: 'Delete an existing comment on a task',
-				value: 'deleteComment',
-				action: 'Delete a comment',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/tasks/{{$parameter.taskId}}/comments/{{$parameter.commentId}}',
-					},
-				},
-			},
-			{
 				name: 'Get All Labels',
 				description: 'Fetch all labels on a task',
 				value: 'getAllLabelsOnTask',
@@ -156,14 +133,14 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Add a Label',
-				description: 'Add a label to a task',
-				value: 'addLabel',
-				action: 'Add a label',
+				name: 'Get Many',
+				value: 'getAll',
+				description: 'Get many tasks',
+				action: 'Get many tasks',
 				routing: {
 					request: {
-						method: 'PUT',
-						url: '=/tasks/{{$parameter.taskId}}/labels',
+						method: 'GET',
+						url: '=/projects/{{$parameter.taskProject}}/tasks',
 					},
 				},
 			},
@@ -179,18 +156,6 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Add a Relation',
-				description: 'Add a relation to a task',
-				value: 'addRelation',
-				action: 'Add a relation',
-				routing: {
-					request: {
-						method: 'PUT',
-						url: '=/tasks/{{$parameter.taskId}}/relations',
-					},
-				},
-			},
-			{
 				name: 'Remove a Relation',
 				description: 'Remove an existing relation on a task',
 				value: 'removeRelation',
@@ -199,6 +164,41 @@ export const taskProperties: INodeProperties[] = [
 					request: {
 						method: 'DELETE',
 						url: '=/tasks/{{$parameter.taskId}}/relations/{{$parameter.relationKind}}/{{$parameter.otherTaskId}}',
+					},
+				},
+			},
+			{
+				name: 'Remove an Assigned User From a Task',
+				value: 'unassignUser',
+				action: 'Unassign a user',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/tasks/{{$parameter.taskId}}/assignees/{{$parameter.userId}}',
+					},
+				},
+			},
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update a task',
+				action: 'Update a task',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/tasks/{{$parameter.taskId}}',
+					},
+				},
+			},
+			{
+				name: 'Update a Comment',
+				description: 'Update an existing comment on a task',
+				value: 'updateComment',
+				action: 'Update a comment',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/tasks/{{$parameter.taskId}}/comments/{{$parameter.commentId}}',
 					},
 				},
 			},
@@ -237,7 +237,7 @@ export const taskProperties: INodeProperties[] = [
 		displayName: 'Project Title or ID',
 		name: 'taskProject',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		required: true,
 		modes: [
 			{
@@ -459,7 +459,8 @@ export const taskProperties: INodeProperties[] = [
 					},
 				],
 				default: 0,
-				description: 'How a repeating task will repeat itself. Will be triggered when a task is marked done.',
+				description:
+					'How a repeating task will repeat itself. Will be triggered when a task is marked done.',
 				routing: {
 					send: {
 						type: 'body',
@@ -551,16 +552,20 @@ export const taskProperties: INodeProperties[] = [
 		type: 'options',
 		options: [
 			{
-				name: 'Sub Task',
-				value: 'subtask',
+				name: 'Blocked',
+				value: 'blocked',
 			},
 			{
-				name: 'Parent Task',
-				value: 'parenttask',
+				name: 'Blocking',
+				value: 'blocking',
 			},
 			{
-				name: 'Related Task',
-				value: 'related',
+				name: 'Coped To',
+				value: 'copiedto',
+			},
+			{
+				name: 'Copied From',
+				value: 'copiedfrom',
 			},
 			{
 				name: 'Duplicate Of',
@@ -571,28 +576,24 @@ export const taskProperties: INodeProperties[] = [
 				value: 'duplicates',
 			},
 			{
-				name: 'Blocking',
-				value: 'blocking',
+				name: 'Follows',
+				value: 'follows',
 			},
 			{
-				name: 'Blocked',
-				value: 'blocked',
+				name: 'Parent Task',
+				value: 'parenttask',
 			},
 			{
 				name: 'Precedes',
 				value: 'precedes',
 			},
 			{
-				name: 'Follows',
-				value: 'follows',
+				name: 'Related Task',
+				value: 'related',
 			},
 			{
-				name: 'Copied From',
-				value: 'copiedfrom',
-			},
-			{
-				name: 'Coped To',
-				value: 'copiedto',
+				name: 'Sub Task',
+				value: 'subtask',
 			},
 		],
 		default: 'related',
@@ -610,4 +611,4 @@ export const taskProperties: INodeProperties[] = [
 			},
 		},
 	},
-]
+];

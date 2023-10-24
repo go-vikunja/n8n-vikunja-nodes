@@ -1,4 +1,4 @@
-import {INodeProperties} from 'n8n-workflow'
+import { INodeProperties } from 'n8n-workflow';
 
 export const teamProperties: INodeProperties[] = [
 	{
@@ -13,6 +13,18 @@ export const teamProperties: INodeProperties[] = [
 			},
 		},
 		options: [
+			{
+				name: 'Add a User',
+				description: 'Add a user to a team',
+				value: 'addUser',
+				action: 'Add a user',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/teams/{{$parameter.team}}/members',
+					},
+				},
+			},
 			{
 				name: 'Create',
 				value: 'create',
@@ -62,30 +74,6 @@ export const teamProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Update',
-				value: 'update',
-				description: 'Update a team',
-				action: 'Update a team',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '=/teams/{{$parameter.team}}',
-					},
-				},
-			},
-			{
-				name: 'Add a User',
-				description: 'Add a user to a team',
-				value: 'addUser',
-				action: 'Add a user',
-				routing: {
-					request: {
-						method: 'PUT',
-						url: '=/teams/{{$parameter.team}}/members',
-					},
-				},
-			},
-			{
 				name: 'Remove a User From a Team',
 				value: 'removeUser',
 				action: 'Remove a user',
@@ -97,13 +85,25 @@ export const teamProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Toggle a User\'s Admin Status in a Team',
+				name: "Toggle a User's Admin Status in a Team",
 				value: 'updateUser',
 				action: 'Toggle admin status',
 				routing: {
 					request: {
 						method: 'POST',
 						url: '=/teams/{{$parameter.team}}/members/{{$parameter.userId}}',
+					},
+				},
+			},
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update a team',
+				action: 'Update a team',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/teams/{{$parameter.team}}',
 					},
 				},
 			},
@@ -114,7 +114,7 @@ export const teamProperties: INodeProperties[] = [
 		displayName: 'Team Name or ID',
 		name: 'team',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		required: true,
 		modes: [
 			{
@@ -248,4 +248,4 @@ export const teamProperties: INodeProperties[] = [
 			},
 		},
 	},
-]
+];

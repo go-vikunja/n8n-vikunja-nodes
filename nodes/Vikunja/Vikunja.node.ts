@@ -3,14 +3,14 @@ import {
 	INodeListSearchResult,
 	INodeType,
 	INodeTypeDescription,
-} from 'n8n-workflow'
+} from 'n8n-workflow';
 
-import {taskProperties} from './properties/Task'
-import {projectProperties} from './properties/Project'
-import {labelProperties} from './properties/Label'
-import {searchAndMap} from './helper'
-import {webhookProperties} from './properties/Webhook'
-import {teamProperties} from './properties/Team'
+import { taskProperties } from './properties/Task';
+import { projectProperties } from './properties/Project';
+import { labelProperties } from './properties/Label';
+import { searchAndMap } from './helper';
+import { webhookProperties } from './properties/Webhook';
+import { teamProperties } from './properties/Team';
 
 export class Vikunja implements INodeType {
 	description: INodeTypeDescription = {
@@ -20,7 +20,7 @@ export class Vikunja implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Get data from Vikunja\'s API',
+		description: "Get data from Vikunja's API",
 		defaults: {
 			name: 'Vikunja',
 		},
@@ -47,24 +47,24 @@ export class Vikunja implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Task',
-						value: 'task',
+						name: 'Label',
+						value: 'label',
 					},
 					{
 						name: 'Project',
 						value: 'project',
 					},
 					{
-						name: 'Label',
-						value: 'label',
-					},
-					{
-						name: 'Webhook',
-						value: 'webhook',
+						name: 'Task',
+						value: 'task',
 					},
 					{
 						name: 'Team',
 						value: 'team',
+					},
+					{
+						name: 'Webhook',
+						value: 'webhook',
 					},
 				],
 				default: 'task',
@@ -76,19 +76,19 @@ export class Vikunja implements INodeType {
 			...webhookProperties,
 			...teamProperties,
 		],
-	}
+	};
 
 	methods = {
 		listSearch: {
 			searchProjects(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				return searchAndMap(this, '/projects')
+				return searchAndMap(this, '/projects');
 			},
 			async searchLabels(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				return searchAndMap(this, '/labels')
+				return searchAndMap(this, '/labels');
 			},
 			async searchTeams(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				return searchAndMap(this, '/teams', 'name')
+				return searchAndMap(this, '/teams', 'name');
 			},
 		},
-	}
+	};
 }
