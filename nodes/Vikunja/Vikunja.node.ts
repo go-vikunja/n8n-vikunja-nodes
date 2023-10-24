@@ -21,7 +21,7 @@ export class Vikunja implements INodeType {
 			},
 		],
 		requestDefaults: {
-			baseURL: 'http://localhost:3456/api/v1',
+			baseURL: '={{$credentials.apiUrl.replace(new RegExp("/$"), "")}}',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',

@@ -15,6 +15,13 @@ export class VikunjaApi implements ICredentialType {
 			type: 'string',
 			default: '',
 		},
+		{
+			displayName: 'API URL',
+			name: 'apiUrl',
+			type: 'string',
+			description: 'The full api url, complete with the /api/v1 suffix and WITHOUT trailing slash.',
+			default: 'https://app.vikunja.cloud/api/v1',
+		},
 	];
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
