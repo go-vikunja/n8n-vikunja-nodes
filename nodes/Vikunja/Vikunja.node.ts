@@ -177,14 +177,17 @@ export class Vikunja implements INodeType {
 				displayName: 'Task Title',
 				name: 'taskTitle',
 				type: 'string',
-				typeOptions: {
-					rows: 1,
-				},
 				displayOptions: {
 					show: {
 						resource: ['task'],
 						operation: ['create', 'update'],
 					},
+				},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'title',
+					}
 				},
 				default: '',
 				required: true,
@@ -208,6 +211,12 @@ export class Vikunja implements INodeType {
 						type: 'string',
 						default: '',
 						description: 'A description for the task',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'description',
+							}
+						},
 					},
 					{
 						displayName: 'Done',
@@ -215,6 +224,12 @@ export class Vikunja implements INodeType {
 						type: 'boolean',
 						default: false,
 						description: 'Whether this task is done',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'done',
+							}
+						},
 					},
 					{
 						displayName: 'Due Date Time',
@@ -222,6 +237,12 @@ export class Vikunja implements INodeType {
 						type: 'dateTime',
 						default: '',
 						description: 'Specific date and time in RFC3339 format',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'due_date',
+							}
+						},
 					},
 					{
 						displayName: 'Start Date Time',
@@ -229,6 +250,12 @@ export class Vikunja implements INodeType {
 						type: 'dateTime',
 						default: '',
 						description: 'Specific date and time in RFC3339 format',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'start_date',
+							}
+						},
 					},
 					{
 						displayName: 'End Date Time',
@@ -236,12 +263,24 @@ export class Vikunja implements INodeType {
 						type: 'dateTime',
 						default: '',
 						description: 'Specific date and time in RFC3339 format',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'end_date',
+							}
+						},
 					},
 					{
 						displayName: 'Task Color',
 						name: 'hexColor',
 						type: 'color',
-						default: '',
+						default: 'hex_color',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'hex_color',
+							}
+						},
 					},
 					{
 						displayName: 'Favorite',
@@ -249,6 +288,12 @@ export class Vikunja implements INodeType {
 						type: 'boolean',
 						default: false,
 						description: 'Whether this task is set as a favorite task',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'is_favorite',
+							}
+						},
 					},
 					{
 						displayName: 'Priority',
@@ -260,6 +305,12 @@ export class Vikunja implements INodeType {
 						},
 						default: 1,
 						description: 'Task priority from 1 (normal) to 5 (DO NOW)',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'priority',
+							}
+						},
 					},
 					{
 						displayName: 'Percent Done',
@@ -271,6 +322,12 @@ export class Vikunja implements INodeType {
 						},
 						default: 0,
 						description: 'The progress of the task in percent',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'percent_done',
+							}
+						},
 					},
 					{
 						displayName: 'Repeat After',
@@ -278,6 +335,12 @@ export class Vikunja implements INodeType {
 						type: 'number',
 						default: 0,
 						description: 'The amount in seconds after this task will repeat',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'repeat_after',
+							}
+						},
 					},
 					{
 						displayName: 'Repeat Mode',
@@ -302,6 +365,12 @@ export class Vikunja implements INodeType {
 						],
 						default: 0,
 						description: 'How a repeating task will repeat itself. Will be triggered when a task is marked done.',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'repeat_mode',
+							}
+						},
 					},
 
 					// Reminders
@@ -324,7 +393,6 @@ export class Vikunja implements INodeType {
 					uri: `${cred.apiUrl}/projects`,
 					json: true,
 				}
-
 
 				try {
 					const projects = await this.helpers.requestWithAuthentication.call(this, credentialType, options)
