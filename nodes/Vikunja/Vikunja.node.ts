@@ -9,6 +9,7 @@ import {taskProperties} from './properties/Task'
 import {projectProperties} from './properties/Project'
 import {labelProperties} from './properties/Label'
 import {searchAndMap} from './helper'
+import {webhookProperties} from './properties/Webhook'
 
 export class Vikunja implements INodeType {
 	description: INodeTypeDescription = {
@@ -56,6 +57,10 @@ export class Vikunja implements INodeType {
 						name: 'Label',
 						value: 'label',
 					},
+					{
+						name: 'Webhook',
+						value: 'webhook',
+					},
 				],
 				default: 'task',
 			},
@@ -63,6 +68,7 @@ export class Vikunja implements INodeType {
 			...taskProperties,
 			...projectProperties,
 			...labelProperties,
+			...webhookProperties,
 		],
 	}
 
