@@ -85,6 +85,42 @@ export const projectProperties: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				name: 'Get All Link Shares',
+				description: 'Fetch all linkShares on a project',
+				value: 'getAllLinkShares',
+				action: 'Get all link shares',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/project/{{$parameter.project}}/shares',
+					},
+				},
+			},
+			{
+				name: 'Create a Link Share',
+				description: 'Create Link Share for a project',
+				value: 'createLinkShare',
+				action: 'Create a link share',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/projects/{{$parameter.project}}/shares',
+					},
+				},
+			},
+			{
+				name: 'Delete a Link Share',
+				description: 'Delete a link share from a project',
+				value: 'deleteLinkShare',
+				action: 'Delete a link share',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}/shares/{{$parameter.linkShareId}}',
+					},
+				},
+			},
 		],
 		default: 'create',
 	},
@@ -115,7 +151,15 @@ export const projectProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['project'],
-				operation: ['get', 'delete', 'update', 'duplicate'],
+				operation: [
+					'get',
+					'delete',
+					'update',
+					'duplicate',
+					'getAllLinkShares',
+					'createLinkShare',
+					'deleteLinkShare',
+				],
 			},
 		},
 		description: 'The project you want to operate on. Choose from the list, or specify an ID.',
@@ -282,6 +326,115 @@ export const projectProperties: INodeProperties[] = [
 					},
 				},
 			},
+		],
+	},
+	{
+		displayName: 'Link Share ID',
+		name: 'linkShareId',
+		type: 'number',
+		default: '',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['deleteLinkShare'],
+			},
+		},
+	},
+	{
+		displayName: 'Right',
+		name: 'shareRight',
+		type: 'options',
+		options: [
+			{
+				name: 'Read Only',
+				value: 0,
+			},
+			{
+				name: 'Read & Write',
+				value: 1,
+			},
+			{
+				name: 'Admin',
+				value: 2,
+			},
+		],
+		required: true,
+		default: 0,
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['createLinkShare'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'right',
+			},
+		},
+	},
+	{
+		displayName: 'Additional Fields',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['createLinkShare'],
+			},
+		},
+		options: [
+			{
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
+				description: 'The name of this link share. All actions someone takes while being authenticated with that link will appear with that name.',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'name',
+					},
+				},
+			},
+			{
+				displayName: 'Password',
+				name: 'password',
+				type: 'string',
+				default: '',
+				description: 'The password of this link share. You can only set it, not retrieve it after the link share has been created.',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'password',
+					},
+				},
+			},
+			{
+				displayName: 'Sharing Type',
+				name: 'shareType',
+				type: 'options',
+				options: [
+					{
+						name: 'With Password',
+						value: 2,
+					},
+					{
+						name: 'Without Password',
+						value: 1,
+					},
+				],
+				default: 1,
+				routing: {
+					send: {
+						type: 'body',
+						property: 'sharing_type',
+					},
+				},
+			}
 		],
 	},
 ]
