@@ -33,7 +33,8 @@
       "dist/credentials/VikunjaApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Vikunja/Vikunja.node.ts"
+      "dist/nodes/Vikunja/Vikunja.node.ts",
+      "dist/nodes/Vikunja/VikunjaTrigger.node.ts"
     ]
   },
   "devDependencies": {
