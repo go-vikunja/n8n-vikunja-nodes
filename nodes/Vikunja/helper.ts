@@ -1,7 +1,7 @@
 import {OptionsWithUri} from 'request'
 import {IDataObject, ILoadOptionsFunctions, INodeListSearchResult, JsonObject, NodeApiError} from 'n8n-workflow'
 
-export async function searchAndMap(context: ILoadOptionsFunctions, url: string): Promise<INodeListSearchResult> {
+export async function searchAndMap(context: ILoadOptionsFunctions, url: string, titleProperty: string = 'title'): Promise<INodeListSearchResult> {
 	const credentialType = 'vikunjaApi'
 	const cred = await context.getCredentials(credentialType)
 
@@ -14,9 +14,9 @@ export async function searchAndMap(context: ILoadOptionsFunctions, url: string):
 	try {
 		const items = await context.helpers.requestWithAuthentication.call(context, credentialType, options)
 		return {
-			results: items.map((project: IDataObject) => ({
-				name: project.title,
-				value: project.id,
+			results: items.map((item: IDataObject) => ({
+				name: item[titleProperty],
+				value: item.id,
 			})),
 		}
 	} catch (error) {

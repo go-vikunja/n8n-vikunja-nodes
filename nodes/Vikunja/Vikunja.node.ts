@@ -10,6 +10,7 @@ import {projectProperties} from './properties/Project'
 import {labelProperties} from './properties/Label'
 import {searchAndMap} from './helper'
 import {webhookProperties} from './properties/Webhook'
+import {teamProperties} from './properties/Team'
 
 export class Vikunja implements INodeType {
 	description: INodeTypeDescription = {
@@ -61,6 +62,10 @@ export class Vikunja implements INodeType {
 						name: 'Webhook',
 						value: 'webhook',
 					},
+					{
+						name: 'Team',
+						value: 'team',
+					},
 				],
 				default: 'task',
 			},
@@ -69,6 +74,7 @@ export class Vikunja implements INodeType {
 			...projectProperties,
 			...labelProperties,
 			...webhookProperties,
+			...teamProperties,
 		],
 	}
 
@@ -81,7 +87,7 @@ export class Vikunja implements INodeType {
 				return searchAndMap(this, '/labels')
 			},
 			async searchTeams(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				return searchAndMap(this, '/teams')
+				return searchAndMap(this, '/teams', 'name')
 			},
 		},
 	}
