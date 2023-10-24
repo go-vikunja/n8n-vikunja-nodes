@@ -68,7 +68,7 @@ export const projectProperties: INodeProperties[] = [
 				action: 'Update a project',
 				routing: {
 					request: {
-						method: 'GET',
+						method: 'POST',
 						url: '=/projects/{{$parameter.project}}',
 					},
 				},
@@ -392,7 +392,7 @@ export const projectProperties: INodeProperties[] = [
 				displayName: 'Project Color',
 				name: 'hexColor',
 				type: 'color',
-				default: 'hex_color',
+				default: '#000000',
 				routing: {
 					send: {
 						type: 'body',

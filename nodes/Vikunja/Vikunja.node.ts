@@ -52,6 +52,10 @@ export class Vikunja implements INodeType {
 						name: 'Project',
 						value: 'project',
 					},
+					{
+						name: 'Label',
+						value: 'label',
+					},
 				],
 				default: 'task',
 			},

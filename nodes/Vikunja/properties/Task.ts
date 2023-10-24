@@ -174,7 +174,7 @@ export const taskProperties: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/tasks/{{$parameter.taskId}}/labels/{{$parameter.label}}',
+						url: '=/tasks/{{$parameter.taskId}}/labels/{{$parameter.taskLabel}}',
 					},
 				},
 			},
@@ -369,7 +369,7 @@ export const taskProperties: INodeProperties[] = [
 				displayName: 'Task Color',
 				name: 'hexColor',
 				type: 'color',
-				default: 'hex_color',
+				default: '#000000',
 				routing: {
 					send: {
 						type: 'body',
