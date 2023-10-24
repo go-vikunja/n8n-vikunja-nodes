@@ -125,19 +125,41 @@ export class Vikunja implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Assign a User to a Task',
+						value: 'assignUser',
+						action: 'Assign a user',
+						routing: {
+							request: {
+								method: 'PUT',
+								url: '=/tasks/{{$parameter.taskId}}/assignees',
+							},
+						},
+					},
+					{
+						name: 'Remove an Assigned User from a Task',
+						value: 'unassignUser',
+						action: 'Unassign a user',
+						routing: {
+							request: {
+								method: 'DELETE',
+								url: '=/tasks/{{$parameter.taskId}}/assignees/{{$parameter.userId}}',
+							},
+						},
+					},
 				],
 				default: 'create',
 			},
 			{
 				displayName: 'Task ID',
 				name: 'taskId',
-				type: 'string',
+				type: 'number',
 				default: '',
 				required: true,
 				displayOptions: {
 					show: {
 						resource: ['task'],
-						operation: ['delete', 'get', 'update'],
+						operation: ['delete', 'get', 'update', 'assignUser', 'unassignUser'],
 					},
 				},
 			},
@@ -376,7 +398,25 @@ export class Vikunja implements INodeType {
 					// Reminders
 				],
 			},
-
+			{
+				displayName: 'User ID',
+				name: 'userId',
+				type: 'number',
+				default: '',
+				required: true,
+				displayOptions: {
+					show: {
+						resource: ['task'],
+						operation: ['assignUser', 'unassignUser'],
+					},
+				},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'user_id',
+					}
+				},
+			},
 			// More
 		],
 	}
