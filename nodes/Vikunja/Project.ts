@@ -121,6 +121,52 @@ export const projectProperties: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				name: 'Get All Teams',
+				description: 'Fetch all teams who have access to a project',
+				value: 'getAllTeams',
+				action: 'Get all teams',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects/{{$parameter.project}}/teams',
+					},
+				},
+			},
+			{
+				name: 'Add a Team',
+				description: 'Add a team to a project',
+				value: 'addTeam',
+				action: 'Add a team',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/projects/{{$parameter.project}}/teams',
+					},
+				},
+			},
+			{
+				name: 'Update a Team\'s Rights on a Project',
+				value: 'updateTeam',
+				action: 'Update a team s rights on a project a project',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/teams/{{$parameter.teamId}}',
+					},
+				},
+			},
+			{
+				name: 'Remove a Team From a Project',
+				value: 'removeTeam',
+				action: 'Remove a team',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}/teams/{{$parameter.teamId}}',
+					},
+				},
+			},
 		],
 		default: 'create',
 	},
@@ -159,6 +205,10 @@ export const projectProperties: INodeProperties[] = [
 					'getAllLinkShares',
 					'createLinkShare',
 					'deleteLinkShare',
+					'getAllTeams',
+					'addTeam',
+					'updateTeam',
+					'removeTeam',
 				],
 			},
 		},
@@ -342,6 +392,37 @@ export const projectProperties: INodeProperties[] = [
 		},
 	},
 	{
+		displayName: 'Team ID',
+		name: 'teamId',
+		type: 'resourceLocator',
+		default: {mode: 'id', value: ''},
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select a team…',
+				typeOptions: {
+					searchListMethod: 'searchTeams',
+					searchable: true,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: '1567890',
+			},
+		],
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['addTeam', 'removeTeam', 'updateTeam'],
+			},
+		},
+	},
+	{
 		displayName: 'Right',
 		name: 'shareRight',
 		type: 'options',
@@ -364,7 +445,7 @@ export const projectProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['project'],
-				operation: ['createLinkShare'],
+				operation: ['createLinkShare', 'addTeam', 'updateTeam'],
 			},
 		},
 		routing: {
