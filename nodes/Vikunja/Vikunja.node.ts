@@ -1,4 +1,12 @@
-import {INodeType, INodeTypeDescription} from 'n8n-workflow'
+import {
+	IDataObject,
+	ILoadOptionsFunctions,
+	INodeListSearchResult,
+	INodeType,
+	INodeTypeDescription, JsonObject,
+	NodeApiError,
+} from 'n8n-workflow'
+import {OptionsWithUri} from 'request'
 
 export class Vikunja implements INodeType {
 	description: INodeTypeDescription = {
@@ -140,16 +148,16 @@ export class Vikunja implements INodeType {
 				default: {mode: 'id', value: ''},
 				required: true,
 				modes: [
-					// {
-					// 	displayName: 'From List',
-					// 	name: 'list',
-					// 	type: 'list',
-					// 	placeholder: 'Select a project...',
-					// 	typeOptions: {
-					// 		searchListMethod: 'searchProjects',
-					// 		searchable: true,
-					// 	},
-					// },
+					{
+						displayName: 'From List',
+						name: 'list',
+						type: 'list',
+						placeholder: 'Select a project...',
+						typeOptions: {
+							searchListMethod: 'searchProjects',
+							searchable: true,
+						},
+					},
 					{
 						displayName: 'ID',
 						name: 'id',
@@ -304,5 +312,32 @@ export class Vikunja implements INodeType {
 		],
 	}
 
+	methods = {
+		listSearch: {
+			async searchProjects(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
 
+				const credentialType = 'vikunjaApi'
+				const cred = await this.getCredentials(credentialType)
+
+				const options: OptionsWithUri = {
+					method: 'GET',
+					uri: `${cred.apiUrl}/projects`,
+					json: true,
+				}
+
+
+				try {
+					const projects = await this.helpers.requestWithAuthentication.call(this, credentialType, options)
+					return {
+						results: projects.map((project: IDataObject) => ({
+							name: project.title,
+							value: project.id,
+						})),
+					}
+				} catch (error) {
+					throw new NodeApiError(this.getNode(), error as JsonObject);
+				}
+			},
+		}
+	}
 }
