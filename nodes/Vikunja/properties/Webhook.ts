@@ -1,6 +1,11 @@
 import {INodeProperties} from 'n8n-workflow'
 
-const availableWebhookEvents = [
+export interface WebhookEventOption {
+	name: string,
+	value: string,
+}
+
+export const availableWebhookEvents: WebhookEventOption[] = [
 	// Copied from /api/v1/webhooks/events
 	'project.deleted',
 	'project.shared.team',
@@ -17,7 +22,7 @@ const availableWebhookEvents = [
 	'task.deleted',
 	'task.relation.created',
 	'task.relation.deleted',
-	'task.updated'
+	'task.updated',
 ].map(e => ({
 	name: e,
 	value: e,

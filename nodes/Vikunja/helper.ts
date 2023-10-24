@@ -1,18 +1,18 @@
 import {OptionsWithUri} from 'request'
-import {IDataObject, ILoadOptionsFunctions, INodeListSearchResult, JsonObject, NodeApiError} from 'n8n-workflow'
+import {
+	IDataObject,
+	IHookFunctions,
+	ILoadOptionsFunctions,
+	INodeListSearchResult,
+	JsonObject,
+	NodeApiError,
+} from 'n8n-workflow'
+import {IExecuteFunctions} from 'n8n-core'
 
 export async function searchAndMap(context: ILoadOptionsFunctions, url: string, titleProperty: string = 'title'): Promise<INodeListSearchResult> {
-	const credentialType = 'vikunjaApi'
-	const cred = await context.getCredentials(credentialType)
-
-	const options: OptionsWithUri = {
-		method: 'GET',
-		uri: cred.apiUrl + url,
-		json: true,
-	}
-
 	try {
-		const items = await context.helpers.requestWithAuthentication.call(context, credentialType, options)
+		// @ts-ignore
+		const items = await apiRequest(context, 'GET', url)
 		return {
 			results: items.map((item: IDataObject) => ({
 				name: item[titleProperty],
@@ -22,4 +22,28 @@ export async function searchAndMap(context: ILoadOptionsFunctions, url: string, 
 	} catch (error) {
 		throw new NodeApiError(context.getNode(), error as JsonObject)
 	}
+}
+
+export async function apiRequest(
+	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
+	method: string,
+	endpoint: string,
+	body?: object,
+	query?: IDataObject,
+): Promise<any> {
+	query = query || {}
+	body = body || {}
+
+	const credentialType = 'vikunjaApi'
+	const {apiUrl} = await this.getCredentials(credentialType)
+
+	const options: OptionsWithUri = {
+		method,
+		body,
+		qs: query,
+		uri: apiUrl + endpoint,
+		json: true,
+	}
+
+	return this.helpers.requestWithAuthentication.call(this, credentialType, options)
 }
