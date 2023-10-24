@@ -167,6 +167,52 @@ export const projectProperties: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				name: 'Get All Users',
+				description: 'Fetch all users who have access to a project',
+				value: 'getAllUsers',
+				action: 'Get all users',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects/{{$parameter.project}}/users',
+					},
+				},
+			},
+			{
+				name: 'Add a User',
+				description: 'Add a user to a project',
+				value: 'addUser',
+				action: 'Add a user',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/projects/{{$parameter.project}}/users',
+					},
+				},
+			},
+			{
+				name: 'Update a User\'s Rights on a Project',
+				value: 'updateUser',
+				action: 'Update a user s rights on a project a project',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/users/{{$parameter.userId}}',
+					},
+				},
+			},
+			{
+				name: 'Remove a User From a Project',
+				value: 'removeUser',
+				action: 'Remove a user',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}/users/{{$parameter.userId}}',
+					},
+				},
+			},
 		],
 		default: 'create',
 	},
@@ -209,6 +255,10 @@ export const projectProperties: INodeProperties[] = [
 					'addTeam',
 					'updateTeam',
 					'removeTeam',
+					'getAllUsers',
+					'addUser',
+					'updateUser',
+					'removeUser',
 				],
 			},
 		},
@@ -419,6 +469,31 @@ export const projectProperties: INodeProperties[] = [
 			show: {
 				resource: ['project'],
 				operation: ['addTeam', 'removeTeam', 'updateTeam'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'team_id',
+			},
+		},
+	},
+	{
+		displayName: 'User ID',
+		name: 'userId',
+		type: 'number',
+		default: '',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['addUser', 'removeUser', 'updateUser'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'user_id',
 			},
 		},
 	},
