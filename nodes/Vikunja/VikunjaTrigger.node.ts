@@ -139,7 +139,6 @@ export class VikunjaTrigger implements INodeType {
 		const bodyData = this.getBodyData()
 
 		// TODO: Check why that does not work as expected even though it gets done as described
-		//    https://developers.vikunja.com/page/webhooks
 
 		//const credentials = await this.getCredentials('vikunjaApi');
 		// // Check if the request is valid
