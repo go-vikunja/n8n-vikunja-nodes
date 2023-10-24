@@ -5,9 +5,9 @@ import {
 	INodeTypeDescription,
 } from 'n8n-workflow'
 
-import {taskProperties} from './Task'
-import {projectProperties} from './Project'
-import {labelProperties} from './Label'
+import {taskProperties} from './properties/Task'
+import {projectProperties} from './properties/Project'
+import {labelProperties} from './properties/Label'
 import {searchAndMap} from './helper'
 
 export class Vikunja implements INodeType {
