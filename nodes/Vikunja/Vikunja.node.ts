@@ -195,6 +195,41 @@ export class Vikunja implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Get All Labels',
+						description: 'Fetch all labels on a task',
+						value: 'getAllLabelsOnTask',
+						action: 'Get all labels',
+						routing: {
+							request: {
+								method: 'GET',
+								url: '=/tasks/{{$parameter.taskId}}/labels',
+							},
+						},
+					},
+					{
+						name: 'Add a Label',
+						description: 'Add a label to a task',
+						value: 'addLabel',
+						action: 'Add a label',
+						routing: {
+							request: {
+								method: 'PUT',
+								url: '=/tasks/{{$parameter.taskId}}/labels',
+							},
+						},
+					},
+					{
+						name: 'Remove a Label From a Task',
+						value: 'removeLabel',
+						action: 'Remove a label',
+						routing: {
+							request: {
+								method: 'DELETE',
+								url: '=/tasks/{{$parameter.taskId}}/labels/{{$parameter.label}}',
+							},
+						},
+					},
 				],
 				default: 'create',
 			},
@@ -217,12 +252,15 @@ export class Vikunja implements INodeType {
 							'updateComment',
 							'deleteComment',
 							'getAllComments',
+							'getAllLabelsOnTask',
+							'addLabel',
+							'removeLabel',
 						],
 					},
 				},
 			},
 			{
-				displayName: 'Project Name or ID',
+				displayName: 'Project Title or ID',
 				name: 'project',
 				type: 'resourceLocator',
 				default: {mode: 'id', value: ''},
@@ -232,7 +270,7 @@ export class Vikunja implements INodeType {
 						displayName: 'From List',
 						name: 'list',
 						type: 'list',
-						placeholder: 'Select a project...',
+						placeholder: 'Select a project…',
 						typeOptions: {
 							searchListMethod: 'searchProjects',
 							searchable: true,
@@ -252,6 +290,44 @@ export class Vikunja implements INodeType {
 					},
 				},
 				description: 'The project you want to operate on. Choose from the list, or specify an ID.',
+			},
+			{
+				displayName: 'Label Title or ID',
+				name: 'label',
+				type: 'resourceLocator',
+				default: {mode: 'id', value: ''},
+				required: true,
+				modes: [
+					{
+						displayName: 'From List',
+						name: 'list',
+						type: 'list',
+						placeholder: 'Select a label…',
+						typeOptions: {
+							searchListMethod: 'searchLabels',
+							searchable: true,
+						},
+					},
+					{
+						displayName: 'ID',
+						name: 'id',
+						type: 'string',
+						placeholder: '1567890',
+					},
+				],
+				displayOptions: {
+					show: {
+						resource: ['task'],
+						operation: ['addLabel', 'removeLabel'],
+					},
+				},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'label_id',
+					},
+				},
+				description: 'The label you want to operate on. Choose from the list, or specify an ID.',
 			},
 			{
 				displayName: 'Task Title',
@@ -531,6 +607,29 @@ export class Vikunja implements INodeType {
 					const projects = await this.helpers.requestWithAuthentication.call(this, credentialType, options)
 					return {
 						results: projects.map((project: IDataObject) => ({
+							name: project.title,
+							value: project.id,
+						})),
+					}
+				} catch (error) {
+					throw new NodeApiError(this.getNode(), error as JsonObject)
+				}
+			},
+			async searchLabels(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+
+				const credentialType = 'vikunjaApi'
+				const cred = await this.getCredentials(credentialType)
+
+				const options: OptionsWithUri = {
+					method: 'GET',
+					uri: `${cred.apiUrl}/labels`,
+					json: true,
+				}
+
+				try {
+					const labels = await this.helpers.requestWithAuthentication.call(this, credentialType, options)
+					return {
+						results: labels.map((project: IDataObject) => ({
 							name: project.title,
 							value: project.id,
 						})),
