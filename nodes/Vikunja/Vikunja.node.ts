@@ -137,13 +137,61 @@ export class Vikunja implements INodeType {
 						},
 					},
 					{
-						name: 'Remove an Assigned User from a Task',
+						name: 'Remove an Assigned User From a Task',
 						value: 'unassignUser',
 						action: 'Unassign a user',
 						routing: {
 							request: {
 								method: 'DELETE',
 								url: '=/tasks/{{$parameter.taskId}}/assignees/{{$parameter.userId}}',
+							},
+						},
+					},
+					{
+						name: 'Get All Comments',
+						description: 'Fetch all comments on a task',
+						value: 'getAllComments',
+						action: 'Get all comments',
+						routing: {
+							request: {
+								method: 'GET',
+								url: '=/tasks/{{$parameter.taskId}}/comments',
+							},
+						},
+					},
+					{
+						name: 'Add a Comment',
+						description: 'Add a comment to a task',
+						value: 'addComment',
+						action: 'Add a comment',
+						routing: {
+							request: {
+								method: 'PUT',
+								url: '=/tasks/{{$parameter.taskId}}/comments',
+							},
+						},
+					},
+					{
+						name: 'Update a Comment',
+						description: 'Update an existing comment on a task',
+						value: 'updateComment',
+						action: 'Update a comment',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '=/tasks/{{$parameter.taskId}}/comments/{{$parameter.commentId}}',
+							},
+						},
+					},
+					{
+						name: 'Delete a Comment',
+						description: 'Delete an existing comment on a task',
+						value: 'deleteComment',
+						action: 'Delete a comment',
+						routing: {
+							request: {
+								method: 'DELETE',
+								url: '=/tasks/{{$parameter.taskId}}/comments/{{$parameter.commentId}}',
 							},
 						},
 					},
@@ -159,7 +207,17 @@ export class Vikunja implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['task'],
-						operation: ['delete', 'get', 'update', 'assignUser', 'unassignUser'],
+						operation: [
+							'delete',
+							'get',
+							'update',
+							'assignUser',
+							'unassignUser',
+							'addComment',
+							'updateComment',
+							'deleteComment',
+							'getAllComments',
+						],
 					},
 				},
 			},
@@ -209,7 +267,7 @@ export class Vikunja implements INodeType {
 					send: {
 						type: 'body',
 						property: 'title',
-					}
+					},
 				},
 				default: '',
 				required: true,
@@ -237,7 +295,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'description',
-							}
+							},
 						},
 					},
 					{
@@ -250,7 +308,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'done',
-							}
+							},
 						},
 					},
 					{
@@ -263,7 +321,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'due_date',
-							}
+							},
 						},
 					},
 					{
@@ -276,7 +334,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'start_date',
-							}
+							},
 						},
 					},
 					{
@@ -289,7 +347,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'end_date',
-							}
+							},
 						},
 					},
 					{
@@ -301,7 +359,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'hex_color',
-							}
+							},
 						},
 					},
 					{
@@ -314,7 +372,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'is_favorite',
-							}
+							},
 						},
 					},
 					{
@@ -331,7 +389,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'priority',
-							}
+							},
 						},
 					},
 					{
@@ -348,7 +406,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'percent_done',
-							}
+							},
 						},
 					},
 					{
@@ -361,7 +419,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'repeat_after',
-							}
+							},
 						},
 					},
 					{
@@ -391,7 +449,7 @@ export class Vikunja implements INodeType {
 							send: {
 								type: 'body',
 								property: 'repeat_mode',
-							}
+							},
 						},
 					},
 
@@ -414,8 +472,43 @@ export class Vikunja implements INodeType {
 					send: {
 						type: 'body',
 						property: 'user_id',
-					}
+					},
 				},
+			},
+			{
+				displayName: 'Comment ID',
+				name: 'commentId',
+				type: 'number',
+				default: '',
+				required: true,
+				displayOptions: {
+					show: {
+						resource: ['task'],
+						operation: ['updateComment', 'deleteComment'],
+					},
+				},
+			},
+			{
+				displayName: 'Comment Text',
+				name: 'commentText',
+				type: 'string',
+				typeOptions: {
+					rows: 4,
+				},
+				displayOptions: {
+					show: {
+						resource: ['task'],
+						operation: ['addComment', 'updateComment'],
+					},
+				},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'comment',
+					},
+				},
+				default: '',
+				required: true,
 			},
 			// More
 		],
@@ -443,9 +536,9 @@ export class Vikunja implements INodeType {
 						})),
 					}
 				} catch (error) {
-					throw new NodeApiError(this.getNode(), error as JsonObject);
+					throw new NodeApiError(this.getNode(), error as JsonObject)
 				}
 			},
-		}
+		},
 	}
 }
