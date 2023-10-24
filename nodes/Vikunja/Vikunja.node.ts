@@ -73,7 +73,7 @@ export class Vikunja implements INodeType {
 						routing: {
 							request: {
 								method: 'PUT',
-								url: '/projects/{project}/tasks',
+								url: '=/projects/{{$parameter.project}}/tasks',
 							},
 						},
 					},
@@ -85,7 +85,7 @@ export class Vikunja implements INodeType {
 						routing: {
 							request: {
 								method: 'DELETE',
-								url: '/tasks/{taskId}',
+								url: '=/tasks/{{$parameter.taskId}}',
 							},
 						},
 					},
@@ -97,7 +97,7 @@ export class Vikunja implements INodeType {
 						routing: {
 							request: {
 								method: 'GET',
-								url: '=/tasks/{{$taskId}}',
+								url: '=/tasks/{{$parameter.taskId}}',
 							},
 						},
 					},
@@ -109,7 +109,7 @@ export class Vikunja implements INodeType {
 						routing: {
 							request: {
 								method: 'GET',
-								url: '/projects/{project}/tasks',
+								url: '=/projects/{{$parameter.project}}/tasks',
 							},
 						},
 					},
@@ -121,7 +121,7 @@ export class Vikunja implements INodeType {
 						routing: {
 							request: {
 								method: 'GET',
-								url: '/tasks/{taskId}',
+								url: '=/tasks/{{$parameter.taskId}}',
 							},
 						},
 					},
