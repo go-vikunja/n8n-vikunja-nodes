@@ -1,16 +1,14 @@
 import {
-	IDataObject,
 	ILoadOptionsFunctions,
 	INodeListSearchResult,
 	INodeType,
-	INodeTypeDescription, JsonObject,
-	NodeApiError,
+	INodeTypeDescription,
 } from 'n8n-workflow'
-import {OptionsWithUri} from 'request'
 
 import {taskProperties} from './Task'
 import {projectProperties} from './Project'
 import {labelProperties} from './Label'
+import {searchAndMap} from './helper'
 
 export class Vikunja implements INodeType {
 	description: INodeTypeDescription = {
@@ -66,51 +64,14 @@ export class Vikunja implements INodeType {
 
 	methods = {
 		listSearch: {
-			async searchProjects(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-
-				const credentialType = 'vikunjaApi'
-				const cred = await this.getCredentials(credentialType)
-
-				const options: OptionsWithUri = {
-					method: 'GET',
-					uri: `${cred.apiUrl}/projects`,
-					json: true,
-				}
-
-				try {
-					const projects = await this.helpers.requestWithAuthentication.call(this, credentialType, options)
-					return {
-						results: projects.map((project: IDataObject) => ({
-							name: project.title,
-							value: project.id,
-						})),
-					}
-				} catch (error) {
-					throw new NodeApiError(this.getNode(), error as JsonObject)
-				}
+			searchProjects(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				return searchAndMap(this, '/projects')
 			},
 			async searchLabels(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-
-				const credentialType = 'vikunjaApi'
-				const cred = await this.getCredentials(credentialType)
-
-				const options: OptionsWithUri = {
-					method: 'GET',
-					uri: `${cred.apiUrl}/labels`,
-					json: true,
-				}
-
-				try {
-					const labels = await this.helpers.requestWithAuthentication.call(this, credentialType, options)
-					return {
-						results: labels.map((project: IDataObject) => ({
-							name: project.title,
-							value: project.id,
-						})),
-					}
-				} catch (error) {
-					throw new NodeApiError(this.getNode(), error as JsonObject)
-				}
+				return searchAndMap(this, '/labels')
+			},
+			async searchTeams(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				return searchAndMap(this, '/teams')
 			},
 		},
 	}
