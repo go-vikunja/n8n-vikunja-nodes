@@ -7,11 +7,12 @@ Check out [our website](https://vikunja.io/) for more information.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
-[Installation](#installation)  
-[Operations](#operations)  
-[Credentials](#credentials)
-[Compatibility](#compatibility)  
-[Resources](#resources)  
+* [Installation](#installation)  
+* [Operations](#operations)  
+* [Credentials](#credentials)
+* [Compatibility](#compatibility)  
+* [Development](#development)
+* [Resources](#resources)  
 
 ## Installation
 
@@ -35,6 +36,16 @@ Enter the API token created previously and the API url.
 ## Compatibility
 
 Tested with n8n Version 1.9.3.
+
+## Development
+
+You need npm and NodeJS installed.
+
+* Install dependencies with `npm i`
+* Build the node with `npm run build`
+* Check for lint errors with `npm run lint` and fix them with `npm run lintfix`
+* To release a new version in the npm registry, run `npm publish`
+* To test the node, build the node with `npm run build`, then while in the project directory run `export N8N_CUSTOM_EXTENSIONS=$PWD8N_CUSTOM_EXTENSIONS=$PWD` and start n8n with the `n8n` command. You should now be able to find the node when searching for it.
 
 ## Resources
 
