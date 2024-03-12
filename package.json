@@ -45,7 +45,7 @@
     "gulp": "^4.0.2",
     "n8n-core": "*",
     "n8n-workflow": "*",
-    "prettier": "^2.7.1",
+    "prettier": "^3.0.0",
     "typescript": "~4.9.0"
   }
 }
