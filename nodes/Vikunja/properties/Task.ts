@@ -185,7 +185,7 @@ export const taskProperties: INodeProperties[] = [
 				action: 'Update a task',
 				routing: {
 					request: {
-						method: 'GET',
+						method: 'POST',
 						url: '=/tasks/{{$parameter.taskId}}',
 					},
 				},
