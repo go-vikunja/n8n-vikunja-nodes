@@ -6,8 +6,8 @@ import {
 	INodeListSearchResult,
 	JsonObject,
 	NodeApiError,
+	IExecuteFunctions,
 } from 'n8n-workflow'
-import {IExecuteFunctions} from 'n8n-core'
 
 export async function searchAndMap(context: ILoadOptionsFunctions, url: string, titleProperty: string = 'title'): Promise<INodeListSearchResult> {
 	try {
