@@ -172,6 +172,7 @@ export const webhookProperties: INodeProperties[] = [
 		displayName: 'Secret',
 		name: 'secret',
 		type: 'string',
+		typeOptions: { password: true },
 		default: '',
 		description: 'If provided, webhook requests will be signed using HMAC. Check out the docs about how to use this: https://vikunja.io/docs/webhooks/#signing.',
 		displayOptions: {

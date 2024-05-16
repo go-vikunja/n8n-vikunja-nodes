@@ -15,7 +15,7 @@ import { teamProperties } from './properties/Team';
 export class Vikunja implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Vikunja',
-		name: 'Vikunja',
+		name: 'vikunja',
 		icon: 'file:vikunja.svg',
 		group: ['transform'],
 		version: 1,
