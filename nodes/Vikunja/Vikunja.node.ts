@@ -80,7 +80,7 @@ export class Vikunja implements INodeType {
 
 	methods = {
 		listSearch: {
-			searchProjects(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+			async searchProjects(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
 				return searchAndMap(this, '/projects');
 			},
 			async searchLabels(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {

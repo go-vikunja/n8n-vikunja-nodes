@@ -51,13 +51,13 @@ export const projectProperties: INodeProperties[] = [
 			},
 			{
 				name: 'Create a Kanban Bucket',
-				description: 'Create a kanban bucket for a project',
+				description: 'Create a kanban bucket for a view',
 				value: 'createBucket',
 				action: 'Create a bucket',
 				routing: {
 					request: {
 						method: 'PUT',
-						url: '=/projects/{{$parameter.project}}/buckets',
+						url: '=/projects/{{$parameter.project}}/views/{{$parameter.view}}/buckets',
 					},
 				},
 			},
@@ -87,13 +87,13 @@ export const projectProperties: INodeProperties[] = [
 			},
 			{
 				name: 'Delete a Kanban Bucket',
-				description: 'Delete a kanban bucket from a project',
+				description: 'Delete a kanban bucket from a view',
 				value: 'deleteBucket',
 				action: 'Delete a bucket',
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/projects/{{$parameter.project}}/buckets/{{$parameter.bucketId}}',
+						url: '=/projects/{{$parameter.project}}/views/{{$parameter.view}}/buckets/{{$parameter.bucketId}}',
 					},
 				},
 			},
@@ -217,13 +217,13 @@ export const projectProperties: INodeProperties[] = [
 			},
 			{
 				name: 'Update a Kanban Bucket',
-				description: 'Update a kanban bucket in a project',
+				description: 'Update a kanban bucket in a view',
 				value: 'updateBucket',
 				action: 'Update a bucket',
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/projects/{{$parameter.project}}/buckets/{{$parameter.bucketId}}',
+						url: '=/projects/{{$parameter.project}}/views/{{$parameter.view}}/buckets/{{$parameter.bucketId}}',
 					},
 				},
 			},
@@ -302,6 +302,32 @@ export const projectProperties: INodeProperties[] = [
 			},
 		},
 		description: 'The project you want to operate on. Choose from the list, or specify an ID.',
+	},
+	{
+		displayName: 'Project View ID',
+		name: 'view',
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		required: true,
+		modes: [
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: '1567890',
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: [
+					'createBucket',
+					'updateBucket',
+					'deleteBucket',
+				],
+			},
+		},
+		description: 'The project view you want to operate on',
 	},
 	{
 		displayName: 'Parent Project Title or ID',
