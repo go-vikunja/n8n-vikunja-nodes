@@ -74,6 +74,18 @@ export const projectProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Create a Project View',
+				description: 'Create a view in a project',
+				value: 'createProjectView',
+				action: 'Create a project view',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/projects/{{$parameter.project}}/views',
+					},
+				},
+			},
+			{
 				name: 'Delete',
 				value: 'delete',
 				description: 'Delete a project',
@@ -106,6 +118,18 @@ export const projectProperties: INodeProperties[] = [
 					request: {
 						method: 'DELETE',
 						url: '=/projects/{{$parameter.project}}/shares/{{$parameter.linkShareId}}',
+					},
+				},
+			},
+			{
+				name: 'Delete a Project View',
+				description: 'Delete a project view from a project',
+				value: 'deleteProjectView',
+				action: 'Delete a project view',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/projects/{{$parameter.project}}/views/{{$parameter.view}}',
 					},
 				},
 			},
@@ -166,6 +190,18 @@ export const projectProperties: INodeProperties[] = [
 					request: {
 						method: 'GET',
 						url: '=/projects/{{$parameter.project}}/users',
+					},
+				},
+			},
+			{
+				name: 'Get All Project Views',
+				description: 'Fetch all views which are associated to this project',
+				value: 'getAllProjectViews',
+				action: 'Get all views',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects/{{$parameter.project}}/views',
 					},
 				},
 			},
@@ -249,6 +285,17 @@ export const projectProperties: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				name: 'Update a Project View',
+				value: 'updateProjectView',
+				action: 'Update a project view',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/views/{{$parameter.view}}',
+					},
+				},
+			},
 		],
 		default: 'create',
 	},
@@ -298,6 +345,10 @@ export const projectProperties: INodeProperties[] = [
 					'createBucket',
 					'updateBucket',
 					'deleteBucket',
+					'getAllProjectViews',
+					'createProjectView',
+					'updateProjectView',
+					'deleteProjectView',
 				],
 			},
 		},
@@ -324,6 +375,9 @@ export const projectProperties: INodeProperties[] = [
 					'createBucket',
 					'updateBucket',
 					'deleteBucket',
+					'createProjectView',
+					'updateProjectView',
+					'deleteProjectView',
 				],
 			},
 		},
@@ -449,34 +503,6 @@ export const projectProperties: INodeProperties[] = [
 					send: {
 						type: 'body',
 						property: 'is_favorite',
-					},
-				},
-			},
-			{
-				displayName: 'Default Bucket ID',
-				name: 'defaultBucketId',
-				type: 'number',
-				default: 0,
-				description:
-					'The ID of the bucket where new tasks without a bucket are added to. By default, this is the leftmost bucket in a project.',
-				routing: {
-					send: {
-						type: 'body',
-						property: 'default_bucket_id',
-					},
-				},
-			},
-			{
-				displayName: 'Done Bucket ID',
-				name: 'doneBucketId',
-				type: 'number',
-				default: 0,
-				description:
-					'If tasks are moved to the done bucket, they are marked as done. If they are marked as done individually, they are moved into the done bucket.',
-				routing: {
-					send: {
-						type: 'body',
-						property: 'done_bucket_id',
 					},
 				},
 			},
@@ -732,5 +758,127 @@ export const projectProperties: INodeProperties[] = [
 			},
 		},
 		default: 0,
+	},
+	{
+		displayName: 'Project View Title',
+		name: 'projectViewTitle',
+		type: 'string',
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['createProjectView', 'updateProjectView'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'title',
+			},
+		},
+		default: '',
+		required: true,
+	},
+	{
+		displayName: 'View Kind',
+		name: 'projectViewKind',
+		type: 'options',
+		default: 'list',
+		required: true,
+		options: [
+			{name: 'List', value: 'list'},
+			{name: 'Gantt', value: 'gantt'},
+			{name: 'Table', value: 'table'},
+			{name: 'Kanban', value: 'kanban'},
+		],
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['createProjectView', 'updateProjectView'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'view_kind',
+			},
+		},
+	},
+	{
+		displayName: 'Bucket Configuration Mode',
+		name: 'projectViewBucketConfigurationMode',
+		type: 'options',
+		default: 'manual',
+		options: [
+			{name: 'None', value: 'none'},
+			{name: 'Manual', value: 'manual'},
+			{name: 'Filter', value: 'filter'},
+		],
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['createProjectView', 'updateProjectView'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'bucket_configuration_mode',
+			},
+		},
+	},
+	{
+		displayName: 'Additional Fields',
+		name: 'projectViewOptions',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['createProjectView', 'updateProjectView'],
+			},
+		},
+		options: [
+			{
+				displayName: 'Default Bucket ID',
+				name: 'defaultBucketId',
+				type: 'number',
+				default: 0,
+				description:
+					'The ID of the bucket where new tasks without a bucket are added to. By default, this is the leftmost bucket in a project.',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'default_bucket_id',
+					},
+				},
+			},
+			{
+				displayName: 'Done Bucket ID',
+				name: 'doneBucketId',
+				type: 'number',
+				default: 0,
+				description:
+					'If tasks are moved to the done bucket, they are marked as done. If they are marked as done individually, they are moved into the done bucket.',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'done_bucket_id',
+					},
+				},
+			},
+			{
+				displayName: 'Project View Filter',
+				name: 'projectViewFilter',
+				type: 'string',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'filter',
+					},
+				},
+				default: '',
+			},
+		],
 	},
 ];
