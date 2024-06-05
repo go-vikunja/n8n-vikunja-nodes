@@ -1,4 +1,3 @@
-import {OptionsWithUri} from 'request'
 import {
 	IDataObject,
 	IHookFunctions,
@@ -6,7 +5,7 @@ import {
 	INodeListSearchResult,
 	JsonObject,
 	NodeApiError,
-	IExecuteFunctions,
+	IExecuteFunctions, IRequestOptions, IHttpRequestMethods,
 } from 'n8n-workflow'
 
 export async function searchAndMap(context: ILoadOptionsFunctions, url: string, titleProperty: string = 'title'): Promise<INodeListSearchResult> {
@@ -26,7 +25,7 @@ export async function searchAndMap(context: ILoadOptionsFunctions, url: string, 
 
 export async function apiRequest(
 	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
-	method: string,
+	method: IHttpRequestMethods,
 	endpoint: string,
 	body?: object,
 	query?: IDataObject,
@@ -37,7 +36,7 @@ export async function apiRequest(
 	const credentialType = 'vikunjaApi'
 	const {apiUrl} = await this.getCredentials(credentialType)
 
-	const options: OptionsWithUri = {
+	const options: IRequestOptions = {
 		method,
 		body,
 		qs: query,
