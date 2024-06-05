@@ -202,6 +202,18 @@ export const taskProperties: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				name: 'Update Task Position',
+				description: 'Update the position of a task on a view',
+				value: 'updateTaskPosition',
+				action: 'Update the task position',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/tasks/{{$parameter.taskId}}/position',
+					},
+				},
+			},
 		],
 		default: 'create',
 	},
@@ -229,6 +241,7 @@ export const taskProperties: INodeProperties[] = [
 					'removeLabel',
 					'addRelation',
 					'removeRelation',
+					'updateTaskPosition',
 				],
 			},
 		},
@@ -610,5 +623,48 @@ export const taskProperties: INodeProperties[] = [
 				property: 'relation_kind',
 			},
 		},
+	},
+	{
+		displayName: 'Project View ID',
+		name: 'view',
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		required: true,
+		routing: {
+			send: {
+				type: 'body',
+				property: 'relation_kind',
+			},
+		},
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation:[
+					'updateTaskPosition',
+				],
+			},
+		},
+		description: 'The project view you want to operate on',
+	},
+	{
+		displayName: 'Task Position',
+		name: 'taskPosition',
+		type: 'number',
+		description: 'A numeric value used to determine the position of this task',
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation:[
+					'updateTaskPosition',
+				],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'position',
+			},
+		},
+		default: 0,
 	},
 ];
