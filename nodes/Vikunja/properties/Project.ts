@@ -714,4 +714,23 @@ export const projectProperties: INodeProperties[] = [
 		},
 		default: 0,
 	},
+	{
+		displayName: 'Bucket Position',
+		name: 'bucketPosition',
+		type: 'number',
+		description: 'A numeric value used to determine the position of this bucket. Lower values are on the left, buckets with a higher value on the right.',
+		displayOptions: {
+			show: {
+				resource: ['project'],
+				operation: ['createBucket', 'updateBucket'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'position',
+			},
+		},
+		default: 0,
+	},
 ];
