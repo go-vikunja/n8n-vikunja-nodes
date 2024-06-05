@@ -481,6 +481,19 @@ export const taskProperties: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				displayName: 'Bucket ID',
+				name: 'bucketId',
+				type: 'number',
+				default: 0,
+				description: 'The ID of the bucket you want to put this task into',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'bucket_id',
+					},
+				},
+			},
 
 			// Reminders
 		],
