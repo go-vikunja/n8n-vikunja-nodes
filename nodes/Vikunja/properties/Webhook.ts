@@ -1,8 +1,8 @@
-import {INodeProperties} from 'n8n-workflow'
+import { INodeProperties } from 'n8n-workflow';
 
 export interface WebhookEventOption {
-	name: string,
-	value: string,
+	name: string;
+	value: string;
 }
 
 export const availableWebhookEvents: WebhookEventOption[] = [
@@ -23,10 +23,10 @@ export const availableWebhookEvents: WebhookEventOption[] = [
 	'task.relation.created',
 	'task.relation.deleted',
 	'task.updated',
-].map(e => ({
+].map((e) => ({
 	name: e,
 	value: e,
-}))
+}));
 
 export const webhookProperties: INodeProperties[] = [
 	{
@@ -96,7 +96,7 @@ export const webhookProperties: INodeProperties[] = [
 		displayName: 'Project Title or ID',
 		name: 'webhookProject',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		required: true,
 		modes: [
 			{
@@ -119,12 +119,7 @@ export const webhookProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['webhook'],
-				operation: [
-					'getAll',
-					'create',
-					'delete',
-					'update',
-				],
+				operation: ['getAll', 'create', 'delete', 'update'],
 			},
 		},
 		description: 'The project you want to operate on. Choose from the list, or specify an ID.',
@@ -174,7 +169,8 @@ export const webhookProperties: INodeProperties[] = [
 		type: 'string',
 		typeOptions: { password: true },
 		default: '',
-		description: 'If provided, webhook requests will be signed using HMAC. Check out the docs about how to use this: https://vikunja.io/docs/webhooks/#signing.',
+		description:
+			'If provided, webhook requests will be signed using HMAC. Check out the docs about how to use this: https://vikunja.io/docs/webhooks/#signing.',
 		displayOptions: {
 			show: {
 				resource: ['webhook'],
@@ -208,4 +204,4 @@ export const webhookProperties: INodeProperties[] = [
 			},
 		},
 	},
-]
+];

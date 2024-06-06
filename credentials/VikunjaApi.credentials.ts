@@ -1,8 +1,4 @@
-import {
-	IAuthenticateGeneric,
-	ICredentialType,
-	INodeProperties,
-} from 'n8n-workflow';
+import { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
 
 export class VikunjaApi implements ICredentialType {
 	name = 'vikunjaApi';
@@ -28,8 +24,8 @@ export class VikunjaApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				Authorization: '=Bearer {{$credentials.apiKey}}'
-			}
+				Authorization: '=Bearer {{$credentials.apiKey}}',
+			},
 		},
 	};
 }

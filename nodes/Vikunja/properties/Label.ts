@@ -1,4 +1,4 @@
-import {INodeProperties} from 'n8n-workflow'
+import { INodeProperties } from 'n8n-workflow';
 
 export const labelProperties: INodeProperties[] = [
 	{
@@ -80,7 +80,7 @@ export const labelProperties: INodeProperties[] = [
 		displayName: 'Label Title or ID',
 		name: 'label',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		required: true,
 		modes: [
 			{
@@ -118,7 +118,7 @@ export const labelProperties: INodeProperties[] = [
 		displayName: 'Label Title or ID',
 		name: 'taskLabel',
 		type: 'resourceLocator',
-		default: {mode: 'id', value: ''},
+		default: { mode: 'id', value: '' },
 		required: true,
 		modes: [
 			{
@@ -211,4 +211,4 @@ export const labelProperties: INodeProperties[] = [
 			},
 		},
 	},
-]
+];

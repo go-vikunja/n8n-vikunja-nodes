@@ -170,6 +170,18 @@ export const projectProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Get All Project Views',
+				description: 'Fetch all views which are associated to this project',
+				value: 'getAllProjectViews',
+				action: 'Get all views',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/projects/{{$parameter.project}}/views',
+					},
+				},
+			},
+			{
 				name: 'Get All Teams',
 				description: 'Fetch all teams who have access to a project',
 				value: 'getAllTeams',
@@ -190,18 +202,6 @@ export const projectProperties: INodeProperties[] = [
 					request: {
 						method: 'GET',
 						url: '=/projects/{{$parameter.project}}/users',
-					},
-				},
-			},
-			{
-				name: 'Get All Project Views',
-				description: 'Fetch all views which are associated to this project',
-				value: 'getAllProjectViews',
-				action: 'Get all views',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/projects/{{$parameter.project}}/views',
 					},
 				},
 			},
@@ -264,6 +264,17 @@ export const projectProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Update a Project View',
+				value: 'updateProjectView',
+				action: 'Update a project view',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/views/{{$parameter.view}}',
+					},
+				},
+			},
+			{
 				name: "Update a Team's Rights on a Project",
 				value: 'updateTeam',
 				action: 'Update a team s rights on a project a project',
@@ -282,17 +293,6 @@ export const projectProperties: INodeProperties[] = [
 					request: {
 						method: 'POST',
 						url: '=/projects/{{$parameter.project}}/users/{{$parameter.userId}}',
-					},
-				},
-			},
-			{
-				name: 'Update a Project View',
-				value: 'updateProjectView',
-				action: 'Update a project view',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '=/projects/{{$parameter.project}}/views/{{$parameter.view}}',
 					},
 				},
 			},
@@ -744,7 +744,8 @@ export const projectProperties: INodeProperties[] = [
 		displayName: 'Bucket Position',
 		name: 'bucketPosition',
 		type: 'number',
-		description: 'A numeric value used to determine the position of this bucket. Lower values are on the left, buckets with a higher value on the right.',
+		description:
+			'A numeric value used to determine the position of this bucket. Lower values are on the left, buckets with a higher value on the right.',
 		displayOptions: {
 			show: {
 				resource: ['project'],
@@ -785,10 +786,10 @@ export const projectProperties: INodeProperties[] = [
 		default: 'list',
 		required: true,
 		options: [
-			{name: 'List', value: 'list'},
-			{name: 'Gantt', value: 'gantt'},
-			{name: 'Table', value: 'table'},
-			{name: 'Kanban', value: 'kanban'},
+			{ name: 'List', value: 'list' },
+			{ name: 'Gantt', value: 'gantt' },
+			{ name: 'Table', value: 'table' },
+			{ name: 'Kanban', value: 'kanban' },
 		],
 		displayOptions: {
 			show: {
@@ -809,9 +810,9 @@ export const projectProperties: INodeProperties[] = [
 		type: 'options',
 		default: 'manual',
 		options: [
-			{name: 'None', value: 'none'},
-			{name: 'Manual', value: 'manual'},
-			{name: 'Filter', value: 'filter'},
+			{ name: 'None', value: 'none' },
+			{ name: 'Manual', value: 'manual' },
+			{ name: 'Filter', value: 'filter' },
 		],
 		displayOptions: {
 			show: {

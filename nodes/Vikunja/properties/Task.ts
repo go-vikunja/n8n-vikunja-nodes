@@ -157,6 +157,17 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Remove a Label From a Task',
+				value: 'removeLabel',
+				action: 'Remove a label',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '=/tasks/{{$parameter.taskId}}/labels/{{$parameter.taskLabel}}',
+					},
+				},
+			},
+			{
 				name: 'Remove a Reaction',
 				value: 'removeReaction',
 				action: 'Remove a reaction',
@@ -165,17 +176,6 @@ export const taskProperties: INodeProperties[] = [
 					request: {
 						method: 'POST',
 						url: '=/{{$parameter.reactionKind}}/{{$parameter.reactionEntityID}}/reactions/delete',
-					},
-				},
-			},
-			{
-				name: 'Remove a Label From a Task',
-				value: 'removeLabel',
-				action: 'Remove a label',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/tasks/{{$parameter.taskId}}/labels/{{$parameter.taskLabel}}',
 					},
 				},
 			},
@@ -676,9 +676,7 @@ export const taskProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['task'],
-				operation:[
-					'updateTaskPosition',
-				],
+				operation: ['updateTaskPosition'],
 			},
 		},
 		description: 'The project view you want to operate on',
@@ -691,9 +689,7 @@ export const taskProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['task'],
-				operation:[
-					'updateTaskPosition',
-				],
+				operation: ['updateTaskPosition'],
 			},
 		},
 		routing: {
@@ -746,7 +742,8 @@ export const taskProperties: INodeProperties[] = [
 		displayName: 'Reaction',
 		name: 'reactionValue',
 		type: 'string',
-		description: 'The actual reaction value. Usually you want to use an emoji here, but this can be any valid utf character or text, up to a length of 20.',
+		description:
+			'The actual reaction value. Usually you want to use an emoji here, but this can be any valid utf character or text, up to a length of 20.',
 		displayOptions: {
 			show: {
 				resource: ['task'],

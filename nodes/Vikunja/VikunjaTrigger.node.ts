@@ -4,9 +4,9 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 	IWebhookResponseData,
-} from 'n8n-workflow'
-import {apiRequest} from './helper'
-import {availableWebhookEvents} from './properties/Webhook'
+} from 'n8n-workflow';
+import { apiRequest } from './helper';
+import { availableWebhookEvents } from './properties/Webhook';
 
 export class VikunjaTrigger implements INodeType {
 	description: INodeTypeDescription = {
@@ -53,90 +53,89 @@ export class VikunjaTrigger implements INodeType {
 				options: availableWebhookEvents,
 			},
 		],
-	}
+	};
 
 	webhookMethods = {
 		default: {
 			async checkExists(this: IHookFunctions): Promise<boolean> {
 				// Check all the webhooks which exist already if it is identical to the
 				// one that is supposed to get created.
-				const projectId = this.getNodeParameter('project') as number
-				const endpoint = `/projects/${projectId}/webhooks`
+				const projectId = this.getNodeParameter('project') as number;
+				const endpoint = `/projects/${projectId}/webhooks`;
 
-				const responseData = await apiRequest.call(this, 'GET', endpoint)
+				const responseData = await apiRequest.call(this, 'GET', endpoint);
 
-				const webhookUrl = this.getNodeWebhookUrl('default')
+				const webhookUrl = this.getNodeWebhookUrl('default');
 
 				for (const webhook of responseData) {
 					if (webhook.target_url === webhookUrl) {
 						// Set webhook-id to be sure that it can be deleted
-						const webhookData = this.getWorkflowStaticData('node')
-						webhookData.webhookId = webhook.id as number
-						return true
+						const webhookData = this.getWorkflowStaticData('node');
+						webhookData.webhookId = webhook.id as number;
+						return true;
 					}
 				}
 
-				return false
+				return false;
 			},
 			async create(this: IHookFunctions): Promise<boolean> {
-				const webhookUrl = this.getNodeWebhookUrl('default')
-				const projectId = this.getNodeParameter('project') as number
-				const endpoint = `/projects/${projectId}/webhooks`
+				const webhookUrl = this.getNodeWebhookUrl('default');
+				const projectId = this.getNodeParameter('project') as number;
+				const endpoint = `/projects/${projectId}/webhooks`;
 
 				const body = {
 					target_url: webhookUrl,
 					events: this.getNodeParameter('events') as string[],
-				}
+				};
 
-				const responseData = await apiRequest.call(this, 'PUT', endpoint, body)
+				const responseData = await apiRequest.call(this, 'PUT', endpoint, body);
 
 				if (responseData.id === undefined) {
 					// Required data is missing so was not successful
-					return false
+					return false;
 				}
 
-				const webhookData = this.getWorkflowStaticData('node')
-				webhookData.webhookId = responseData.id as string
+				const webhookData = this.getWorkflowStaticData('node');
+				webhookData.webhookId = responseData.id as string;
 
-				return true
+				return true;
 			},
 			async delete(this: IHookFunctions): Promise<boolean> {
-				const webhookData = this.getWorkflowStaticData('node')
+				const webhookData = this.getWorkflowStaticData('node');
 
 				if (webhookData.webhookId !== undefined) {
-
-					const projectId = this.getNodeParameter('project') as number
-					const endpoint = `/projects/${projectId}/webhooks/${webhookData.webhookId}`
+					const projectId = this.getNodeParameter('project') as number;
+					const endpoint = `/projects/${projectId}/webhooks/${webhookData.webhookId}`;
 
 					try {
-						await apiRequest.call(this, 'DELETE', endpoint)
+						await apiRequest.call(this, 'DELETE', endpoint);
 					} catch (error) {
-						return false
+						return false;
 					}
 
 					// Remove from the static workflow data so that it is clear
 					// that no webhooks are registered anymore
-					delete webhookData.webhookId
+					delete webhookData.webhookId;
 				}
 
-				return true
+				return true;
 			},
 		},
-	}
+	};
 
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
-		const webhookName = this.getWebhookName()
+		const webhookName = this.getWebhookName();
 
 		if (webhookName === 'setup') {
 			// Is a create webhook confirmation request
-			const res = this.getResponseObject()
-			res.status(200).end()
+			const res = this.getResponseObject();
+			res.status(200).end();
 			return {
 				noWebhookResponse: true,
-			}
+			};
 		}
 
-		const bodyData = this.getBodyData()
+		const bodyData = this.getBodyData();
 
 		// TODO: Check why that does not work as expected even though it gets done as described
 
@@ -153,6 +152,6 @@ export class VikunjaTrigger implements INodeType {
 
 		return {
 			workflowData: [this.helpers.returnJsonArray(bodyData)],
-		}
+		};
 	}
 }
