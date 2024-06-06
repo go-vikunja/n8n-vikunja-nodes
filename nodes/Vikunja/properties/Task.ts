@@ -38,6 +38,18 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Add a Reaction',
+				description: 'Add a reaction to a task or comment',
+				value: 'addReaction',
+				action: 'Add a reaction',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/{{$parameter.reactionKind}}/{{$parameter.reactionEntityID}}/reactions',
+					},
+				},
+			},
+			{
 				name: 'Add a Relation',
 				description: 'Add a relation to a task',
 				value: 'addRelation',
@@ -141,6 +153,18 @@ export const taskProperties: INodeProperties[] = [
 					request: {
 						method: 'GET',
 						url: '=/projects/{{$parameter.taskProject}}/tasks',
+					},
+				},
+			},
+			{
+				name: 'Remove a Reaction',
+				value: 'removeReaction',
+				action: 'Remove a reaction',
+				description: 'Remove a reaction from a task or comment',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/{{$parameter.reactionKind}}/{{$parameter.reactionEntityID}}/reactions/delete',
 					},
 				},
 			},
@@ -679,5 +703,63 @@ export const taskProperties: INodeProperties[] = [
 			},
 		},
 		default: 0,
+	},
+	{
+		displayName: 'Task or Comment ID',
+		description: 'The ID of the task or comment you want to react on',
+		name: 'reactionEntityID',
+		type: 'number',
+		default: '',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation: ['addReaction', 'removeReaction'],
+			},
+		},
+	},
+	{
+		displayName: 'Reaction Kind',
+		name: 'reactionKind',
+		type: 'options',
+		required: true,
+		options: [
+			{
+				name: 'Task',
+				value: 'tasks',
+			},
+			{
+				name: 'Comment',
+				value: 'comments',
+			},
+		],
+		default: 'tasks',
+		description: 'The entity you want to react on',
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation: ['addReaction', 'removeReaction'],
+			},
+		},
+	},
+	{
+		displayName: 'Reaction',
+		name: 'reactionValue',
+		type: 'string',
+		description: 'The actual reaction value. Usually you want to use an emoji here, but this can be any valid utf character or text, up to a length of 20.',
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation: ['addReaction', 'removeReaction'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'value',
+			},
+		},
+		default: '',
+		required: true,
 	},
 ];
