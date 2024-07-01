@@ -38,7 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "~7.13.0",
+    "@typescript-eslint/parser": "~7.15.0",
     "eslint-plugin-n8n-nodes-base": "^1.11.0",
     "gulp": "^5.0.0",
     "n8n-workflow": "*",
