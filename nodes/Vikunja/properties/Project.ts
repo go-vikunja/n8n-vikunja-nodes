@@ -387,7 +387,7 @@ export const projectProperties: INodeProperties[] = [
 		displayName: 'Parent Project Title or ID',
 		name: 'parentProject',
 		type: 'resourceLocator',
-		default: { mode: 'id', value: '' },
+		default: { mode: 'id', value: 0 },
 		modes: [
 			{
 				displayName: 'From List',
