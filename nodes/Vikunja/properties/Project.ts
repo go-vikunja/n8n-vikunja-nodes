@@ -362,6 +362,16 @@ export const projectProperties: INodeProperties[] = [
 		required: true,
 		modes: [
 			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select a project view...',
+				typeOptions: {
+					searchListMethod: 'searchProjectViews',
+					searchable: true,
+				},
+			},
+			{
 				displayName: 'ID',
 				name: 'id',
 				type: 'string',

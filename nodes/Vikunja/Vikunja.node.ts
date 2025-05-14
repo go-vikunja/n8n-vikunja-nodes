@@ -89,6 +89,15 @@ export class Vikunja implements INodeType {
 			async searchTeams(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
 				return searchAndMap(this, '/teams', 'name');
 			},
+			async searchProjectViews(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const projectId = this.getNodeParameter('project', 0) as string | number | undefined;
+				if (!projectId) {
+					// If no project is selected, or project ID is empty, return an empty list.
+					// n8n will typically show the placeholder text or "No options available".
+					return { results: [] };
+				}
+				return searchAndMap(this, `/projects/${projectId}/views`);
+			},
 		},
 	};
 }
