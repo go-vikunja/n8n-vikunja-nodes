@@ -674,7 +674,6 @@ export const taskProperties: INodeProperties[] = [
 				typeOptions: {
 					searchListMethod: 'searchProjectViews',
 					searchable: true,
-					loadOptionsDependsOn: ['taskProject'],
 				},
 			},
 			{
