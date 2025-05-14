@@ -297,7 +297,7 @@ export const taskProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['task'],
-				operation: ['create', 'getAll'],
+				operation: ['create', 'getAll', 'updateTaskPosition'],
 			},
 		},
 		description: 'The project you want to operate on. Choose from the list, or specify an ID.',
@@ -667,10 +667,29 @@ export const taskProperties: INodeProperties[] = [
 		type: 'resourceLocator',
 		default: { mode: 'id', value: '' },
 		required: true,
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select a project view...',
+				typeOptions: {
+					searchListMethod: 'searchProjectViews',
+					searchable: true,
+					loadOptionsDependsOn: ['taskProject'],
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Project View ID',
+			},
+		],
 		routing: {
 			send: {
 				type: 'body',
-				property: 'relation_kind',
+				property: 'view_id',
 			},
 		},
 		displayOptions: {
