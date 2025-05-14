@@ -463,6 +463,19 @@ export const projectProperties: INodeProperties[] = [
 		},
 		options: [
 			{
+				displayName: 'Archived',
+				name: 'isArchived',
+				type: 'boolean',
+				default: false,
+				description: 'Whether a project is archived',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'is_archived',
+					},
+				},
+			},
+			{
 				displayName: 'Description',
 				name: 'description',
 				type: 'string',
@@ -475,31 +488,6 @@ export const projectProperties: INodeProperties[] = [
 					send: {
 						type: 'body',
 						property: 'description',
-					},
-				},
-			},
-			{
-				displayName: 'Project Color',
-				name: 'hexColor',
-				type: 'color',
-				default: '#000000',
-				routing: {
-					send: {
-						type: 'body',
-						property: 'hex_color',
-					},
-				},
-			},
-			{
-				displayName: 'Archived',
-				name: 'isArchived',
-				type: 'boolean',
-				default: false,
-				description: 'Whether a project is archived',
-				routing: {
-					send: {
-						type: 'body',
-						property: 'is_archived',
 					},
 				},
 			},
@@ -526,6 +514,18 @@ export const projectProperties: INodeProperties[] = [
 					send: {
 						type: 'body',
 						property: 'identifier',
+					},
+				},
+			},
+			{
+				displayName: 'Project Color',
+				name: 'hexColor',
+				type: 'color',
+				default: '#000000',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'hex_color',
 					},
 				},
 			},

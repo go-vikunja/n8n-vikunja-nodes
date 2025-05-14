@@ -335,6 +335,19 @@ export const taskProperties: INodeProperties[] = [
 		},
 		options: [
 			{
+				displayName: 'Bucket ID',
+				name: 'bucketId',
+				type: 'number',
+				default: 0,
+				description: 'The ID of the bucket you want to put this task into',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'bucket_id',
+					},
+				},
+			},
+			{
 				displayName: 'Description',
 				name: 'description',
 				type: 'string',
@@ -377,19 +390,6 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
-				displayName: 'Start Date Time',
-				name: 'startDateTime',
-				type: 'dateTime',
-				default: '',
-				description: 'Specific date and time in RFC3339 format',
-				routing: {
-					send: {
-						type: 'body',
-						property: 'start_date',
-					},
-				},
-			},
-			{
 				displayName: 'End Date Time',
 				name: 'endDateTime',
 				type: 'dateTime',
@@ -399,18 +399,6 @@ export const taskProperties: INodeProperties[] = [
 					send: {
 						type: 'body',
 						property: 'end_date',
-					},
-				},
-			},
-			{
-				displayName: 'Task Color',
-				name: 'hexColor',
-				type: 'color',
-				default: '#000000',
-				routing: {
-					send: {
-						type: 'body',
-						property: 'hex_color',
 					},
 				},
 			},
@@ -428,23 +416,6 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
-				displayName: 'Priority',
-				name: 'priority',
-				type: 'number',
-				typeOptions: {
-					maxValue: 5,
-					minValue: 1,
-				},
-				default: 1,
-				description: 'Task priority from 1 (normal) to 5 (DO NOW)',
-				routing: {
-					send: {
-						type: 'body',
-						property: 'priority',
-					},
-				},
-			},
-			{
 				displayName: 'Percent Done',
 				name: 'percentDone',
 				type: 'number',
@@ -458,6 +429,23 @@ export const taskProperties: INodeProperties[] = [
 					send: {
 						type: 'body',
 						property: 'percent_done',
+					},
+				},
+			},
+			{
+				displayName: 'Priority',
+				name: 'priority',
+				type: 'number',
+				typeOptions: {
+					maxValue: 5,
+					minValue: 1,
+				},
+				default: 1,
+				description: 'Task priority from 1 (normal) to 5 (DO NOW)',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'priority',
 					},
 				},
 			},
@@ -506,20 +494,30 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
-				displayName: 'Bucket ID',
-				name: 'bucketId',
-				type: 'number',
-				default: 0,
-				description: 'The ID of the bucket you want to put this task into',
+				displayName: 'Start Date Time',
+				name: 'startDateTime',
+				type: 'dateTime',
+				default: '',
+				description: 'Specific date and time in RFC3339 format',
 				routing: {
 					send: {
 						type: 'body',
-						property: 'bucket_id',
+						property: 'start_date',
 					},
 				},
 			},
-
-			// Reminders
+			{
+				displayName: 'Task Color',
+				name: 'hexColor',
+				type: 'color',
+				default: '#000000',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'hex_color',
+					},
+				},
+			},
 		],
 	},
 	{
