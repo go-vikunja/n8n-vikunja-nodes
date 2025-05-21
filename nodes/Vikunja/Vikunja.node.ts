@@ -25,8 +25,8 @@ export class Vikunja implements INodeType {
 		defaults: {
 			name: 'Vikunja',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'vikunjaApi',

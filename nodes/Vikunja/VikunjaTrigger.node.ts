@@ -4,7 +4,6 @@ import {
 	type INodeType,
 	type INodeTypeDescription,
 	type IWebhookResponseData,
-	NodeConnectionType,
 } from 'n8n-workflow';
 import { apiRequest } from './helper';
 import { availableWebhookEvents } from './properties/Webhook';
@@ -21,7 +20,7 @@ export class VikunjaTrigger implements INodeType {
 			name: 'Vikunja Trigger',
 		},
 		inputs: [],
-		outputs: [NodeConnectionType.Main],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'vikunjaApi',
