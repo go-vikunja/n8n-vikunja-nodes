@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-vikunja",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "This is an n8n community node which lets you use Vikunja in your n8n workflows.",
   "keywords": [
     "n8n-community-node-package"
@@ -17,7 +17,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "tsc && gulp build:icons",
+    "build": "gulp build:icons",
     "dev": "tsc --watch",
     "format": "prettier nodes credentials --write",
     "lint": "eslint nodes credentials package.json",
