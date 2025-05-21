@@ -35,7 +35,7 @@ Enter the API token created previously and the API url.
 
 ## Compatibility
 
-Tested with n8n Version 1.9.3.
+Tested with n8n Version 1.91.3.
 
 ## Development
 

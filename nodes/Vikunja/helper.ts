@@ -16,8 +16,7 @@ export async function searchAndMap(
 	titleProperty: string = 'title',
 ): Promise<INodeListSearchResult> {
 	try {
-		// @ts-ignore
-		const items = await apiRequest(context, 'GET', url);
+		const items = await apiRequest.call(context, 'GET', url);
 		return {
 			results: items.map((item: IDataObject) => ({
 				name: item[titleProperty],
