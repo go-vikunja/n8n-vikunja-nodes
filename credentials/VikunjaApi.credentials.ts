@@ -6,7 +6,7 @@ export class VikunjaApi implements ICredentialType {
 	documentationUrl = 'https://vikunja.io/docs/n8n/';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'API Key',
+			displayName: 'API Token',
 			name: 'apiKey',
 			type: 'string',
 			typeOptions: { password: true },
