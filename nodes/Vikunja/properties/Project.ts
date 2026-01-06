@@ -275,9 +275,9 @@ export const projectProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: "Update a Team's Rights on a Project",
+				name: "Update a Team's Permissions on a Project",
 				value: 'updateTeam',
-				action: 'Update a team s rights on a project a project',
+				action: 'Update a team s permissions on a project a project',
 				routing: {
 					request: {
 						method: 'POST',
@@ -286,9 +286,9 @@ export const projectProperties: INodeProperties[] = [
 				},
 			},
 			{
-				name: "Update a User's Rights on a Project",
+				name: "Update a User's Permissions on a Project",
 				value: 'updateUser',
-				action: 'Update a user s rights on a project a project',
+				action: 'Update a user s permissions on a project a project',
 				routing: {
 					request: {
 						method: 'POST',
@@ -601,7 +601,7 @@ export const projectProperties: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Right',
+		displayName: 'Permission',
 		name: 'shareRight',
 		type: 'options',
 		options: [
@@ -629,7 +629,7 @@ export const projectProperties: INodeProperties[] = [
 		routing: {
 			send: {
 				type: 'body',
-				property: 'right',
+				property: 'permission',
 			},
 		},
 	},
