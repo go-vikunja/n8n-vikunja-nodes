@@ -1,0 +1,39 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "identifier": {
+            "type": "string"
+        },
+        "hex_color": {
+            "type": "string"
+        },
+        "is_archived": {
+            "type": "boolean"
+        },
+        "is_favorite": {
+            "type": "boolean"
+        },
+        "parent_project_id": {
+            "type": "integer"
+        },
+        "created": {
+            "type": "string"
+        },
+        "updated": {
+            "type": "string"
+        },
+        "owner": {
+            "type": "object"
+        }
+    },
+    "version": 1
+}
