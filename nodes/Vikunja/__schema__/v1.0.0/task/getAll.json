@@ -1,0 +1,54 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "done": {
+                "type": "boolean"
+            },
+            "done_at": {
+                "type": ["string", "null"]
+            },
+            "due_date": {
+                "type": ["string", "null"]
+            },
+            "created": {
+                "type": "string"
+            },
+            "updated": {
+                "type": "string"
+            },
+            "priority": {
+                "type": "integer"
+            },
+            "start_date": {
+                "type": ["string", "null"]
+            },
+            "end_date": {
+                "type": ["string", "null"]
+            },
+            "percent_done": {
+                "type": "number"
+            },
+            "is_favorite": {
+                "type": "boolean"
+            },
+            "project_id": {
+                "type": "integer"
+            },
+            "hex_color": {
+                "type": "string"
+            }
+        }
+    },
+    "version": 1
+}

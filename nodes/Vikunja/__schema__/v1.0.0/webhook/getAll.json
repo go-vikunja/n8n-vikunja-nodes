@@ -1,0 +1,30 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "project_id": {
+                "type": "integer"
+            },
+            "target_url": {
+                "type": "string"
+            },
+            "events": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "created": {
+                "type": "string"
+            },
+            "updated": {
+                "type": "string"
+            }
+        }
+    },
+    "version": 1
+}

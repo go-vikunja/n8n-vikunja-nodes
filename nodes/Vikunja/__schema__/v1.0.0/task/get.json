@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "done": {
+            "type": "boolean"
+        },
+        "done_at": {
+            "type": ["string", "null"]
+        },
+        "due_date": {
+            "type": ["string", "null"]
+        },
+        "created": {
+            "type": "string"
+        },
+        "updated": {
+            "type": "string"
+        },
+        "created_by": {
+            "type": "object"
+        },
+        "priority": {
+            "type": "integer"
+        },
+        "start_date": {
+            "type": ["string", "null"]
+        },
+        "end_date": {
+            "type": ["string", "null"]
+        },
+        "repeat_after": {
+            "type": "integer"
+        },
+        "repeat_mode": {
+            "type": "integer"
+        },
+        "percent_done": {
+            "type": "number"
+        },
+        "is_favorite": {
+            "type": "boolean"
+        },
+        "project_id": {
+            "type": "integer"
+        },
+        "hex_color": {
+            "type": "string"
+        },
+        "bucket_id": {
+            "type": "integer"
+        },
+        "assignees": {
+            "type": "array"
+        },
+        "labels": {
+            "type": "array"
+        },
+        "comments": {
+            "type": "array"
+        }
+    },
+    "version": 1
+}

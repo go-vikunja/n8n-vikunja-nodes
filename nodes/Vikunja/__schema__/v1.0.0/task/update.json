@@ -1,0 +1,54 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "done": {
+            "type": "boolean"
+        },
+        "done_at": {
+            "type": ["string", "null"]
+        },
+        "due_date": {
+            "type": ["string", "null"]
+        },
+        "updated": {
+            "type": "string"
+        },
+        "priority": {
+            "type": "integer"
+        },
+        "start_date": {
+            "type": ["string", "null"]
+        },
+        "end_date": {
+            "type": ["string", "null"]
+        },
+        "repeat_after": {
+            "type": "integer"
+        },
+        "repeat_mode": {
+            "type": "integer"
+        },
+        "percent_done": {
+            "type": "number"
+        },
+        "is_favorite": {
+            "type": "boolean"
+        },
+        "hex_color": {
+            "type": "string"
+        },
+        "bucket_id": {
+            "type": "integer"
+        }
+    },
+    "version": 1
+}
