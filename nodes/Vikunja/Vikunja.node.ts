@@ -3,7 +3,6 @@ import {
 	INodeListSearchResult,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
 } from 'n8n-workflow';
 
 import { taskProperties } from './properties/Task';
@@ -25,6 +24,7 @@ export class Vikunja implements INodeType {
 		defaults: {
 			name: 'Vikunja',
 		},
+		usableAsTool: true,
 		inputs: ['main'],
 		outputs: ['main'],
 		credentials: [
