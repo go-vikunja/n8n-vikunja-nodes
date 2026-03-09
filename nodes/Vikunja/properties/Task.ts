@@ -1,5 +1,4 @@
 import { INodeProperties } from 'n8n-workflow';
-
 export const taskProperties: INodeProperties[] = [
 	{
 		displayName: 'Operation',
@@ -163,7 +162,8 @@ export const taskProperties: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/tasks/{{$parameter.taskId}}/labels/{{$parameter.taskLabel}}',
+						// FIX: Updated to use labelID instead of non-existent taskLabel
+						url: '=/tasks/{{$parameter.taskId}}/labels/{{$parameter.labelID}}',
 					},
 				},
 			},
@@ -348,6 +348,19 @@ export const taskProperties: INodeProperties[] = [
 				},
 			},
 			{
+				displayName: 'Cover Image Attachment ID',
+				name: 'coverImageAttachmentID',
+				type: 'number',
+				default: 0,
+				description: 'The ID of the attachment that is the cover image',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'cover_image_attachment_id',
+					},
+				},
+			},
+			{
 				displayName: 'Description',
 				name: 'description',
 				type: 'string',
@@ -379,9 +392,9 @@ export const taskProperties: INodeProperties[] = [
 			{
 				displayName: 'Due Date Time',
 				name: 'dueDateTime',
-				type: 'dateTime',
+				type: 'string',
 				default: '',
-				description: 'Specific date and time in RFC3339 format',
+				description: 'Due date and time in ISO 8601 format with timezone (e.g., 2026-03-18T17:40:31-07:00). Use a Date/Time node to format the date/time value.',
 				routing: {
 					send: {
 						type: 'body',
@@ -392,9 +405,9 @@ export const taskProperties: INodeProperties[] = [
 			{
 				displayName: 'End Date Time',
 				name: 'endDateTime',
-				type: 'dateTime',
+				type: 'string',
 				default: '',
-				description: 'Specific date and time in RFC3339 format',
+				description: 'End date and time in ISO 8601 format with timezone (e.g., 2026-03-18T17:40:31-07:00). Use a Date/Time node to format the date/time value.',
 				routing: {
 					send: {
 						type: 'body',
@@ -473,14 +486,14 @@ export const taskProperties: INodeProperties[] = [
 						value: 0,
 					},
 					{
-						name: 'Repeat Monthly',
-						description: 'Repeat all dates each months (ignoring repeat_after)',
-						value: 1,
-					},
-					{
 						name: 'Repeat From Current Date',
 						description: 'Repeat from the current date rather than the last set date',
 						value: 2,
+					},
+					{
+						name: 'Repeat Monthly',
+						description: 'Repeat all dates each months (ignoring repeat_after)',
+						value: 1,
 					},
 				],
 				default: 0,
@@ -496,9 +509,9 @@ export const taskProperties: INodeProperties[] = [
 			{
 				displayName: 'Start Date Time',
 				name: 'startDateTime',
-				type: 'dateTime',
+				type: 'string',
 				default: '',
-				description: 'Specific date and time in RFC3339 format',
+				description: 'Start date and time in ISO 8601 format with timezone (e.g., 2026-03-18T17:40:31-07:00). Use a Date/Time node to format the date/time value.',
 				routing: {
 					send: {
 						type: 'body',
@@ -515,6 +528,166 @@ export const taskProperties: INodeProperties[] = [
 					send: {
 						type: 'body',
 						property: 'hex_color',
+					},
+				},
+			},
+			{
+				displayName: 'Task Identifier',
+				name: 'taskIdentifier',
+				type: 'string',
+				default: '',
+				description: "The task identifier, based on the project identifier and the task's index",
+				routing: {
+					send: {
+						type: 'body',
+						property: 'identifier',
+					},
+				},
+			},
+		],
+	},
+	{
+		displayName: 'Additional Query Parameters',
+		name: 'additionalQueryParameters',
+		type: 'collection',
+		placeholder: 'Add Query Parameter',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation: ['getAll'],
+			},
+		},
+		options: [
+			{
+				displayName: 'Expand',
+				name: 'expand',
+				type: 'multiOptions',
+				default: [],
+				options: [
+					{ name: 'Subtasks', value: 'subtasks' },
+					{ name: 'Buckets', value: 'buckets' },
+					{ name: 'Reactions', value: 'reactions' },
+					{ name: 'Comments', value: 'comments' },
+				],
+				routing: {
+					send: {
+						type: 'query',
+						property: 'expand',
+					},
+				},
+			},
+			{
+				displayName: 'Filter',
+				name: 'filter',
+				type: 'string',
+				default: '',
+				description: 'The filter query to match tasks by. Check out https://vikunja.io/docs/filters for a full explanation.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'filter',
+					},
+				},
+			},
+			{
+				displayName: 'Filter Include Nulls',
+				name: 'filterIncludeNulls',
+				type: 'boolean',
+				default: false,
+				description: 'Whether set to true the result will include filtered fields whose value is set to `null`. Available values are `true` or `false`. Defaults to `false`.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'filter_include_nulls',
+					},
+				},
+			},
+			{
+				displayName: 'Items Per Page',
+				name: 'perPage',
+				type: 'number',
+				default: '',
+				description: 'The maximum number of items per page. Note this parameter is limited by the configured maximum of items per page.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'per_page',
+					},
+				},
+			},
+			{
+				displayName: 'Page Number',
+				name: 'page',
+				type: 'number',
+				default: '',
+				description: 'The page number. Used for pagination. If not provided, the first page of results is returned.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'page',
+					},
+				},
+			},
+			{
+				displayName: 'Search Text',
+				name: 'search',
+				type: 'string',
+				default: '',
+				description: 'Search tasks by task text',
+				routing: {
+					send: {
+						type: 'query',
+						property: 's',
+					},
+				},
+			},
+			{
+				displayName: 'Sort By',
+				name: 'sortBy',
+				type: 'options',
+				default: 'id',
+				options: [
+					{ name: 'Created', value: 'created' },
+					{ name: 'Created By ID', value: 'created_by_id' },
+					{ name: 'Description', value: 'description' },
+					{ name: 'Done', value: 'done' },
+					{ name: 'Done At', value: 'done_at' },
+					{ name: 'Due Date', value: 'due_date' },
+					{ name: 'End Date', value: 'end_date' },
+					{ name: 'Hex Color', value: 'hex_color' },
+					{ name: 'ID', value: 'id' },
+					{ name: 'Percent Done', value: 'percent_done' },
+					{ name: 'Priority', value: 'priority' },
+					{ name: 'Project ID', value: 'project_id' },
+					{ name: 'Repeat After', value: 'repeat_after' },
+					{ name: 'Start Date', value: 'start_date' },
+					{ name: 'Title', value: 'title' },
+					{ name: 'UID', value: 'uid' },
+					{ name: 'Updated', value: 'updated' },
+				],
+				description: 'Field to sort tasks by. Default is "ID".',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'sort_by',
+					},
+				},
+			},
+			{
+				displayName: 'Sort Order',
+				name: 'orderBy',
+				type: 'options',
+				default: 'asc',
+				options: [
+					{ name: 'Ascending', value: 'asc' },
+					{ name: 'Descending', value: 'desc' },
+				],
+				description: 'Sort order. Default is "asc".',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'order_by',
 					},
 				},
 			},
@@ -600,7 +773,7 @@ export const taskProperties: INodeProperties[] = [
 		type: 'options',
 		options: [
 			{
-				name: 'Blocked',
+				name: 'Blocked By',
 				value: 'blocked',
 			},
 			{
@@ -608,12 +781,12 @@ export const taskProperties: INodeProperties[] = [
 				value: 'blocking',
 			},
 			{
-				name: 'Coped To',
-				value: 'copiedto',
-			},
-			{
 				name: 'Copied From',
 				value: 'copiedfrom',
+			},
+			{
+				name: 'Copied To',
+				value: 'copiedto',
 			},
 			{
 				name: 'Duplicate Of',
@@ -774,5 +947,25 @@ export const taskProperties: INodeProperties[] = [
 		},
 		default: '',
 		required: true,
+	},
+	{
+		displayName: 'Label ID',
+		description: 'The ID of the label you want to add or remove',
+		name: 'labelID',
+		type: 'number',
+		default: '',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation: ['addLabel', 'removeLabel'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'label_id',
+			},
+		},
 	},
 ];
